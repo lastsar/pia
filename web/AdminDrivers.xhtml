@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    
+    <h:body>
+
+    <h:form id="driverForm">
+        <h:dataTable id="driverTable" value="#{AdminDriverController.allDrivers}" var="driver">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="First Name"/>
+                </f:facet>
+                <h:inputText value="#{driver.firstName}" rendered="#{driver.editable}" />
+                <h:outputText value="#{driver.firstName}" rendered="#{not driver.editable}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Last Name"/>
+                </f:facet>
+                <h:inputText value="#{driver.lastName}" rendered="#{driver.editable}" />
+                <h:outputText value="#{driver.lastName}" rendered="#{not driver.editable}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Date Of Birdth"/>
+                </f:facet>
+                <h:inputText value="#{driver.dateOfBirdth}" rendered="#{driver.editable}" >
+                    <f:convertDateTime pattern = "dd-mm-yyyy" />
+                </h:inputText>    
+                <h:outputText value="#{driver.dateOfBirdth}" rendered="#{not driver.editable}" >
+                    <f:convertDateTime pattern = "dd-mm-yyyy" />
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Driver License"/>
+                </f:facet>
+                <h:inputText value="#{driver.driverLicenseIssueYear}" rendered="#{driver.editable}" >
+                    <f:convertDateTime pattern = "yyyy" />
+                </h:inputText>    
+                <h:outputText value="#{driver.driverLicenseIssueYear}" rendered="#{not driver.editable}" >
+                    <f:convertDateTime pattern = "yyyy" />
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Edit" action="#{AdminDriverController.edit(driver)}" rendered="#{not driver.editable}" >
+                    <f:ajax render="driverForm:driverTable" />
+                </h:commandLink>
+                <h:commandLink value="Update" action="#{AdminDriverController.update(driver)}" rendered="#{driver.editable}" >
+                    <f:ajax execute="@form" render="driverForm:driverTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Cancel" action="#{AdminDriverController.cancelEdit(driver)}" rendered="#{driver.editable}" >
+                    <f:ajax render="driverForm:driverTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink id="Delete" value="delete" action="#{AdminDriverController.delete(driver)}"
+                               onclick="return confirm('Are you sure?')">
+                    <f:ajax render="driverForm:driverTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Add Driver To City Line" action="#{AdminCityLineController.addDriver(driver)}"/>
+            </h:column>
+        </h:dataTable>
+
+        <h2>Add driver to table</h2>
+        <h:outputLabel value="First Name">
+            <h:inputText value="#{AdminDriverController.driver.firstName}" />
+        </h:outputLabel><br/>
+        <h:outputLabel value="Last Name">
+            <h:inputText value="#{AdminDriverController.driver.lastName}" />
+        </h:outputLabel><br/>
+        <h:outputLabel value="Date Of Birdth">
+            <h:inputText value="#{AdminDriverController.driver.dateOfBirdth}" >
+                <f:convertDateTime pattern = "dd-mm-yyyy" />
+            </h:inputText>
+        </h:outputLabel><br/>
+        <h:outputLabel value="Driver License Year">
+            <h:inputText value="#{AdminDriverController.driver.driverLicenseIssueYear}" >
+                <f:convertDateTime pattern = "yyyy" />
+            </h:inputText>
+        </h:outputLabel><br/>
+        <h:commandButton value="Save" action="#{AdminDriverController.save}">
+            <f:ajax execute="driverForm" render="driverForm:driverTable" />
+        </h:commandButton>
+
+        </h:form>
+    </h:body>
+</html>

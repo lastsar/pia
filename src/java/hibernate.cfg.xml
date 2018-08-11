@@ -46,7 +46,20 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/project?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">Laki12345</property>
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
+    
+    <mapping class="model.City"/>
+    <mapping class="model.Station"/>
+    <mapping class="model.Driver"/>
+    <mapping class="model.CityLine"/>
+    
+    <mapping class="model.Bus"/>
+    <mapping class="model.Carrier"/>
+    <mapping class="model.IntercityLine"/>
+    <mapping class="model.CityLine"/>
+    
+    
+    
   </session-factory>
 </hibernate-configuration>

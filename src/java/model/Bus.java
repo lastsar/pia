@@ -6,7 +6,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,28 +15,25 @@ import javax.persistence.Id;
  *
  * @author Lazar
  */
-public  class Bus implements Serializable {
+
+@Entity
+public class Bus implements Serializable {
     
-    private Carrier carrier;
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
     private String brand;
     private String model;
     private Integer numberOfSeats;
-    private Driver driver;
-    private List<Line> lines;
-    
-    public Bus(Carrier carrier, String brand, String model, Integer numberOfSeats) {
-        this.carrier = carrier;
+    private transient Boolean editable;
+
+    public Bus() {
+        this.editable=false;
+    }
+
+    public Bus(String brand, String model, Integer numberOfSeats) {
         this.brand = brand;
         this.model = model;
         this.numberOfSeats = numberOfSeats;
-    }
-
-    public Carrier getCarrier() {
-        return carrier;
-    }
-
-    public void setCarrier(Carrier carrier) {
-        this.carrier = carrier;
     }
 
     public String getBrand() {
@@ -64,21 +60,21 @@ public  class Bus implements Serializable {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public Driver getDriver() {
-        return driver;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public List<Line> getLines() {
-        return lines;
+    public Boolean getEditable() {
+        return editable;
     }
 
-    public void setLines(List<Line> lines) {
-        this.lines = lines;
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
     }
-   
+    
     
 }

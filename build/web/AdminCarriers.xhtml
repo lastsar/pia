@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    
+    <h:body>
+
+    <h:form id="carrierForm">
+        <h:dataTable id="carrierTable" value="#{AdminCarrierController.allCarriers}" var="carrier">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:inputText value="#{carrier.name}" rendered="#{carrier.editable}" />
+                <h:outputText value="#{carrier.name}" rendered="#{not carrier.editable}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Phone"/>
+                </f:facet>
+                <h:inputText value="#{carrier.phone}" rendered="#{carrier.editable}" />
+                <h:outputText value="#{carrier.phone}" rendered="#{not carrier.editable}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Municipality"/>
+                </f:facet>
+                <h:inputText value="#{carrier.address.municipality}" rendered="#{carrier.editable}" />
+                <h:outputText value="#{carrier.address.municipality}" rendered="#{not carrier.editable}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="City"/>
+                </f:facet>
+                <h:inputText value="#{carrier.address.city}" rendered="#{carrier.editable}" />
+                <h:outputText value="#{carrier.address.city}" rendered="#{not carrier.editable}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Street"/>
+                </f:facet>
+                <h:inputText value="#{carrier.address.street}" rendered="#{carrier.editable}" />
+                <h:outputText value="#{carrier.address.street}" rendered="#{not carrier.editable}" />
+            </h:column>
+            <h:column>
+                <h:commandLink value="Edit" action="#{AdminCarrierController.edit(carrier)}" rendered="#{not carrier.editable}" >
+                    <f:ajax render="carrierForm:carrierTable" />
+                </h:commandLink>
+                <h:commandLink value="Update" action="#{AdminCarrierController.update(carrier)}" rendered="#{carrier.editable}" >
+                    <f:ajax execute="@form" render="carrierForm:carrierTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Cancel" action="#{AdminCarrierController.cancelEdit(carrier)}" rendered="#{carrier.editable}" >
+                    <f:ajax render="carrierForm:carrierTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink id="Delete" value="delete" action="#{AdminCarrierController.delete(carrier)}"
+                               onclick="return confirm('Are you sure?')">
+                    <f:ajax render="carrierForm:carrierTable" />
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+
+        <h2>Add carrier to table</h2>
+        <h:outputLabel value="Name">
+            <h:inputText value="#{AdminCarrierController.carrier.name}" />
+        </h:outputLabel><br/>
+        <h:outputLabel value="Phone">
+            <h:inputText value="#{AdminCarrierController.carrier.phone}" />
+        </h:outputLabel><br/>
+        <h:outputLabel value="Municipality">
+            <h:inputText value="#{AdminCarrierController.carrier.address.municipality}" />
+        </h:outputLabel><br/>
+        <h:outputLabel value="City">
+            <h:inputText value="#{AdminCarrierController.carrier.address.city}" />
+        </h:outputLabel><br/>
+        <h:outputLabel value="Street">
+            <h:inputText value="#{AdminCarrierController.carrier.address.street}" />
+        </h:outputLabel><br/>
+        <h:commandButton value="Save" action="#{AdminCarrierController.save}">
+            <f:ajax execute="carrierForm" render="carrierForm:carrierTable" />
+        </h:commandButton>
+
+        </h:form>
+    </h:body>
+</html>

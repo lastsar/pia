@@ -5,25 +5,53 @@
  */
 package model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Lazar
  */
-public class IntercityLine extends Line{
+@Entity
+public class IntercityLine implements Serializable {
     
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
+    @ManyToOne
     private Carrier carrier;
-    private Date departureDateAndTime;//at particullar date and time and therefore there is one driver
-    private Date arrivalDateAndTIme;
+    @ManyToOne
+    private City departureCity;
+    @ManyToMany
+    private List<City> interCities;
+    @ManyToOne
+    private City arrivalCity;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date departureDateAndTime;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date arrivalDateAndTime;
+    @ManyToOne
     private Bus bus;
-    private Driver drivers;
+    @ManyToOne
+    private Driver driver;
 
-    public IntercityLine(Carrier carrier, Station departureStation, List<Station> interstations, Station arrivalStation) {
-        super(departureStation, interstations, arrivalStation);
+    public IntercityLine() {
+    }
+
+    public IntercityLine(Carrier carrier, City departureCity, List<City> interCities, City arrivalCity) {
         this.carrier = carrier;
+        this.departureCity = departureCity;
+        this.interCities = interCities;
+        this.arrivalCity = arrivalCity;
     }
 
     public Carrier getCarrier() {
@@ -34,6 +62,30 @@ public class IntercityLine extends Line{
         this.carrier = carrier;
     }
 
+    public City getDepartureCity() {
+        return departureCity;
+    }
+
+    public void setDepartureCity(City departureCity) {
+        this.departureCity = departureCity;
+    }
+
+    public List<City> getInterCities() {
+        return interCities;
+    }
+
+    public void setInterCities(List<City> interCities) {
+        this.interCities = interCities;
+    }
+
+    public City getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public void setArrivalCity(City arrivalCity) {
+        this.arrivalCity = arrivalCity;
+    }
+
     public Date getDepartureDateAndTime() {
         return departureDateAndTime;
     }
@@ -42,12 +94,12 @@ public class IntercityLine extends Line{
         this.departureDateAndTime = departureDateAndTime;
     }
 
-    public Date getArrivalDateAndTIme() {
-        return arrivalDateAndTIme;
+    public Date getArrivalDateAndTime() {
+        return arrivalDateAndTime;
     }
 
-    public void setArrivalDateAndTIme(Date arrivalDateAndTIme) {
-        this.arrivalDateAndTIme = arrivalDateAndTIme;
+    public void setArrivalDateAndTime(Date arrivalDateAndTime) {
+        this.arrivalDateAndTime = arrivalDateAndTime;
     }
 
     public Bus getBus() {
@@ -58,14 +110,22 @@ public class IntercityLine extends Line{
         this.bus = bus;
     }
 
-    public Driver getDrivers() {
-        return drivers;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDrivers(Driver drivers) {
-        this.drivers = drivers;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
     
     
-
+    
 }

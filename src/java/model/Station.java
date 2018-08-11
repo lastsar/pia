@@ -5,27 +5,35 @@
  */
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Lazar
  */
-public class Station {
+@Entity
+public class Station implements Serializable {
     
-    protected enum Type{
-        CITY, INTERCITY
-    }
-    
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
+    @ManyToOne
     private City city;
     private String name;
-    private List<Line> lines;
+    private transient Boolean editable;
+
+    public Station() {
+        this.city = new City();
+        this.editable = false;
+    }
 
     public Station(City city, String name) {
         this.city = city;
         this.name = name;
-        this.lines = new ArrayList<>();
     }
 
     public City getCity() {
@@ -44,12 +52,21 @@ public class Station {
         this.name = name;
     }
 
-    public List<Line> getLines() {
-        return lines;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLines(List<Line> lines) {
-        this.lines = lines;
+    public void setId(Integer id) {
+        this.id = id;
     }
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
+    
     
 }

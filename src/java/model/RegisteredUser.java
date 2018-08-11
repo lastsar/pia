@@ -37,6 +37,7 @@ public class RegisteredUser implements Serializable {
     private String email;
 
     public RegisteredUser() {
+        this.address = new Address();
     }
 
     public RegisteredUser(String firstName, String lastName, String userName, String password, Address address, Date dateOfBirdth, String phoneNumber, String category, String email) {

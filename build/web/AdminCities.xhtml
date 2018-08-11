@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    
+    <h:body>
+
+    <h:form id="cityForm">
+        <h:dataTable id="cityTable" value="#{AdminCityController.allCities}" var="city">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="name"/>
+                </f:facet>
+                <h:inputText value="#{city.name}" rendered="#{city.editable}" />
+                <h:outputText value="#{city.name}" rendered="#{not city.editable}" />
+            </h:column>
+            <h:column>
+                <h:commandLink value="Edit" action="#{AdminCityController.edit(city)}" rendered="#{not city.editable}" >
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+                <h:commandLink value="Update" action="#{AdminCityController.update(city)}" rendered="#{city.editable}" >
+                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Cancel" action="#{AdminCityController.cancelEdit(city)}" rendered="#{city.editable}" >
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink id="Delete" value="delete" action="#{AdminCityController.delete(city)}"
+                               onclick="return confirm('Are you sure?')">
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Add To Station" action="#{AdminStationController.addCity(city)}" />
+            </h:column>
+            <h:column>
+                <h:commandLink value="Add To City Line" action="#{AdminCityLineController.addCity(city)}" />
+            </h:column>
+        </h:dataTable>
+
+        <h2>Add city to table</h2>
+        <h:outputLabel value="City: ">
+            <h:inputText id="city" value="#{AdminCityController.city.name}" />
+        </h:outputLabel>
+
+        <h:commandButton value="Save" action="#{AdminCityController.save}">
+            <f:ajax execute="cityForm" render="cityForm:cityTable" />
+        </h:commandButton>
+
+        </h:form>
+    </h:body>
+</html>

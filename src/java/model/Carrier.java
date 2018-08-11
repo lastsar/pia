@@ -6,31 +6,36 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Lazar
  */
-
-
+@Entity
 public class Carrier implements Serializable {
     
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
     private String name;
+    @Embedded
     private Address address;
-    private String phoneNumber;
-    private List<Bus> busses;
-    private List<Driver> drivers;
-    private List<Line> lines;
+    private String phone;
+    private transient Boolean editable;
 
-    public Carrier(String name, Address address, String phoneNumber) {
+    public Carrier() {
+        this.address = new Address();
+        this.editable = false;
+    }
+
+    public Carrier(String name, Address address, String phone) {
         this.name = name;
         this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.busses = new ArrayList<>();
-        this.drivers = new ArrayList<>();
-        this.lines = new ArrayList<>();
+        this.phone = phone;
     }
 
     public String getName() {
@@ -49,37 +54,29 @@ public class Carrier implements Serializable {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public List<Bus> getBusses() {
-        return busses;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBusses(List<Bus> busses) {
-        this.busses = busses;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public List<Driver> getDrivers() {
-        return drivers;
+    public Boolean getEditable() {
+        return editable;
     }
 
-    public void setDrivers(List<Driver> drivers) {
-        this.drivers = drivers;
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
     }
-
-    public List<Line> getLines() {
-        return lines;
-    }
-
-    public void setLines(List<Line> lines) {
-        this.lines = lines;
-    }
-
+    
     
 }

@@ -8,11 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import model.Station;
+import model.City;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,9 +23,9 @@ import org.hibernate.cfg.Configuration;
  * @author Lazar
  */
 
-@ManagedBean
+@ManagedBean(name="UserController")
 @SessionScoped
-public class Controller {
+public class UserController {
     
     private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
     
@@ -65,7 +64,7 @@ public class Controller {
 
             
         } catch (ParseException ex) {//invalid input
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
             
         Session session = SESSION_FACTORY.openSession();

@@ -3,23 +3,36 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/Bus.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/Station.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/Address.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/Carrier.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/service/AdminService.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/Driver.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/Controller.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/IntercityLine.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Address.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/IntercityLine.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/index.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/UserController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminCityController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminCarrierController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminBusController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminDriverController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/City.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Bus.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminDrivers.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Carrier.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminStart.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminCityLines.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Driver.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminStations.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminCarriers.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/SessionFactory.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminStationController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminCityLineController.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/CityLine.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Station.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/AdminController.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/CityStation.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/IntercityDrver.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/City.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/CityDriver.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/Line.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/RegisteredUser.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/CityLine.java</file>
-            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/beans/IntercityStation.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/WEB-INF/beans.xml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/RegisteredUser.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminBusses.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminCities.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

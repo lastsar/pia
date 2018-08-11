@@ -6,9 +6,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,21 +17,28 @@ import javax.persistence.Temporal;
  *
  * @author Lazar
  */
-
+@Entity
 public class Driver implements Serializable {
     
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer Id;
     private String firstName;
     private String lastName;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirdth;
-    private Date driverLicenseIssueDate;
-    private List<Line> lines;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date driverLicenseIssueYear;
+    private transient Boolean editable;
 
-    public Driver(String firstName, String lastName, Date dateOfBirdth, Date driverLicenseIssueDate) {
+    public Driver() {
+        this.editable = false;
+    }
+
+    public Driver(String firstName, String lastName, Date dateOfBirdth, Date driverLicenseIssueYear) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirdth = dateOfBirdth;
-        this.driverLicenseIssueDate = driverLicenseIssueDate;
-        this.lines = new ArrayList<>();
+        this.driverLicenseIssueYear = driverLicenseIssueYear;
     }
 
     public String getFirstName() {
@@ -60,22 +65,29 @@ public class Driver implements Serializable {
         this.dateOfBirdth = dateOfBirdth;
     }
 
-    public Date getDriverLicenseIssueDate() {
-        return driverLicenseIssueDate;
+    public Date getDriverLicenseIssueYear() {
+        return driverLicenseIssueYear;
     }
 
-    public void setDriverLicenseIssueDate(Date driverLicenseIssueDate) {
-        this.driverLicenseIssueDate = driverLicenseIssueDate;
+    public void setDriverLicenseIssueYear(Date driverLicenseIssueYear) {
+        this.driverLicenseIssueYear = driverLicenseIssueYear;
     }
 
-    public List<Line> getLines() {
-        return lines;
+    public Integer getId() {
+        return Id;
     }
 
-    public void setLines(List<Line> lines) {
-        this.lines = lines;
+    public void setId(Integer Id) {
+        this.Id = Id;
+    }
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
     }
     
     
-
 }
