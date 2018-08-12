@@ -28,257 +28,83 @@ import org.hibernate.cfg.Configuration;
 @ManagedBean(name="AdminController")
 @SessionScoped
 public class AdminController {
+        
+    private CityService cityService;
+    private StationService stationService;
+    private DriverService driverService;
+    private CityLineService cityLineService;
+    private BusService busService;
+    private CarrierService carrierService;
+    private IntercityLineService intercityLineService;
     
-    private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
 
-
-    private City city;
-    private List<City> cities;
-    private List<City> allCities;
-    private Station station;
-    private List<Station> stations;
-    private List<Station> allStations;
-    private Bus bus;
-    private List<Bus> busses;
-    private List<Bus> allBusses;
-    private Carrier carrier;
-    private List<Carrier> carriers;
-    private List<Carrier> allCarriers;
-    private Driver driver;
-    private List<Driver> drivers;
-    private List<Driver> allDrivers;
-    private CityLine cityLine;
-    private List<CityLine> cityLines;
-    private List<CityLine> allCityLines;
-    private IntercityLine intercityLine;
-    private List<IntercityLine> intercityLines;
-    private List<IntercityLine> allIntercityLines;
-    
-    public AdminController(){
+    public AdminController() {
         
-        Session session = SESSION_FACTORY.openSession();
+        this.cityService = new CityService();
+        this.stationService = new StationService();
+        this.driverService = new DriverService();
+        this.cityLineService = new CityLineService();
+        this.busService = new BusService();
+        this.carrierService = new CarrierService();
+        this.intercityLineService = new IntercityLineService();
         
-        
-        String hql = null;
-        Query query = null;
-        
-        hql = "from City";
-        query = session.createQuery(hql);
-        allCities = query.list();
-        
-        hql = "from Station";
-        query = session.createQuery(hql);
-        allStations = query.list();
-        
-        hql = "from Bus";
-        query = session.createQuery(hql);
-        allBusses= query.list();
-        
-        hql = "from Driver";
-        query = session.createQuery(hql);
-        allDrivers = query.list();
-       
-        hql = "from Carrier";
-        query = session.createQuery(hql);
-        allCarriers = query.list();
-        
-        hql = "from CityLine";
-        query = session.createQuery(hql);
-        allCityLines = query.list();
-        
-        hql = "from IntercityLines";
-        query = session.createQuery(hql);
-        allIntercityLines = query.list();
-        
-        
-        session.close();
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
     
-    public void edit(City city){
-        city.setEditable(true);
-    }
-    
-    public void save(City city){
-        Session session = SESSION_FACTORY.openSession();
-        session.beginTransaction();
-        session.update(city);
-        session.getTransaction().commit();
-        session.close();
-        allCities.add(allCities.indexOf(city), city);
-        city.setEditable(false);
-    }
-    
-    public void cancelEdit(City city){
-        city.setEditable(false);
+
+    public CityService getCityService() {
+        return cityService;
     }
 
-    public List<City> getCities() {
-        return cities;
+    public void setCityService(CityService cityService) {
+        this.cityService = cityService;
     }
 
-    public void setCities(List<City> cities) {
-        this.cities = cities;
+    public StationService getStationService() {
+        return stationService;
     }
 
-    public List<City> getAllCities() {
-        return allCities;
+    public void setStationService(StationService stationService) {
+        this.stationService = stationService;
     }
 
-    public void setAllCities(List<City> allCities) {
-        this.allCities = allCities;
+    public DriverService getDriverService() {
+        return driverService;
     }
 
-    public Station getStation() {
-        return station;
+    public void setDriverService(DriverService driverService) {
+        this.driverService = driverService;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public CityLineService getCityLineService() {
+        return cityLineService;
     }
 
-    public List<Station> getStations() {
-        return stations;
+    public void setCityLineService(CityLineService cityLineService) {
+        this.cityLineService = cityLineService;
     }
 
-    public void setStations(List<Station> stations) {
-        this.stations = stations;
+    public BusService getBusService() {
+        return busService;
     }
 
-    public List<Station> getAllStations() {
-        return allStations;
+    public void setBusService(BusService busService) {
+        this.busService = busService;
     }
 
-    public void setAllStations(List<Station> allStations) {
-        this.allStations = allStations;
+    public CarrierService getCarrierService() {
+        return carrierService;
     }
 
-    public Bus getBus() {
-        return bus;
+    public void setCarrierService(CarrierService carrierService) {
+        this.carrierService = carrierService;
     }
 
-    public void setBus(Bus bus) {
-        this.bus = bus;
+    public IntercityLineService getIntercityLineService() {
+        return intercityLineService;
     }
 
-    public List<Bus> getBusses() {
-        return busses;
+    public void setIntercityLineService(IntercityLineService intercityLineService) {
+        this.intercityLineService = intercityLineService;
     }
-
-    public void setBusses(List<Bus> busses) {
-        this.busses = busses;
-    }
-
-    public List<Bus> getAllBusses() {
-        return allBusses;
-    }
-
-    public void setAllBusses(List<Bus> allBusses) {
-        this.allBusses = allBusses;
-    }
-
-    public Carrier getCarrier() {
-        return carrier;
-    }
-
-    public void setCarrier(Carrier carrier) {
-        this.carrier = carrier;
-    }
-
-    public List<Carrier> getCarriers() {
-        return carriers;
-    }
-
-    public void setCarriers(List<Carrier> carriers) {
-        this.carriers = carriers;
-    }
-
-    public List<Carrier> getAllCarriers() {
-        return allCarriers;
-    }
-
-    public void setAllCarriers(List<Carrier> allCarriers) {
-        this.allCarriers = allCarriers;
-    }
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
-    public List<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(List<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
-    public List<Driver> getAllDrivers() {
-        return allDrivers;
-    }
-
-    public void setAllDrivers(List<Driver> allDrivers) {
-        this.allDrivers = allDrivers;
-    }
-
-    public CityLine getCityLine() {
-        return cityLine;
-    }
-
-    public void setCityLine(CityLine cityLine) {
-        this.cityLine = cityLine;
-    }
-
-    public List<CityLine> getCityLines() {
-        return cityLines;
-    }
-
-    public void setCityLines(List<CityLine> cityLines) {
-        this.cityLines = cityLines;
-    }
-
-    public List<CityLine> getAllCityLines() {
-        return allCityLines;
-    }
-
-    public void setAllCityLines(List<CityLine> allCityLines) {
-        this.allCityLines = allCityLines;
-    }
-
-    public IntercityLine getIntercityLine() {
-        return intercityLine;
-    }
-
-    public void setIntercityLine(IntercityLine intercityLine) {
-        this.intercityLine = intercityLine;
-    }
-
-    public List<IntercityLine> getIntercityLines() {
-        return intercityLines;
-    }
-
-    public void setIntercityLines(List<IntercityLine> intercityLines) {
-        this.intercityLines = intercityLines;
-    }
-
-    public List<IntercityLine> getAllIntercityLines() {
-        return allIntercityLines;
-    }
-
-    public void setAllIntercityLines(List<IntercityLine> allIntercityLines) {
-        this.allIntercityLines = allIntercityLines;
-    }
-
     
 }

@@ -16,7 +16,7 @@ and open the template in the editor.
     <h:body>
 
     <h:form id="cityForm">
-        <h:dataTable id="cityTable" value="#{AdminCityController.allCities}" var="city">
+        <h:dataTable id="cityTable" value="#{AdminController.cityService.allCities}" var="city">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="name"/>
@@ -25,39 +25,38 @@ and open the template in the editor.
                 <h:outputText value="#{city.name}" rendered="#{not city.editable}" />
             </h:column>
             <h:column>
-                <h:commandLink value="Edit" action="#{AdminCityController.edit(city)}" rendered="#{not city.editable}" >
+                <h:commandLink value="Edit" action="#{AdminController.cityService.edit(city)}" rendered="#{not city.editable}" >
                     <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminCityController.update(city)}" rendered="#{city.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.cityService.update(city)}" rendered="#{city.editable}" >
                     <f:ajax execute="@form" render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Cancel" action="#{AdminCityController.cancelEdit(city)}" rendered="#{city.editable}" >
-                    <f:ajax render="cityForm:cityTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminCityController.delete(city)}"
+                <h:commandLink id="Delete" value="delete" action="#{AdminController.cityService.delete(city)}"
                                onclick="return confirm('Are you sure?')">
                     <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add To Station" action="#{AdminStationController.addCity(city)}" />
+                <h:commandLink value="Add To Station" action="#{AdminController.stationService.editStation.setCity(city)}" rendered="#{city.editable}" >
+                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add To City Line" action="#{AdminCityLineController.addCity(city)}" />
+                <h:commandLink value="Add To City Line" action="#{AdminController.cityLineService.editCityLine.setCity(city)}" rendered="#{city.editable}" >
+                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                </h:commandLink>
             </h:column>
+            
         </h:dataTable>
 
         <h2>Add city to table</h2>
         <h:outputLabel value="City: ">
-            <h:inputText id="city" value="#{AdminCityController.city.name}" />
+            <h:inputText id="city" value="#{AdminController.cityService.newCity.name}" />
         </h:outputLabel>
-
-        <h:commandButton value="Save" action="#{AdminCityController.save}">
-            <f:ajax execute="cityForm" render="cityForm:cityTable" />
+        <h:commandButton value="Save" action="#{AdminController.cityService.save()}">
+            <f:ajax execute="cityForm" render="cityForm" />
         </h:commandButton>
 
         </h:form>

@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -14,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -43,8 +43,17 @@ public class IntercityLine implements Serializable {
     private Bus bus;
     @ManyToOne
     private Driver driver;
+    
+    private transient Boolean editable;
 
     public IntercityLine() {
+        this.editable = false;
+        this.carrier = new Carrier();
+        this.departureCity = new City();
+        this.interCities = new ArrayList<>();
+        this.arrivalCity = new City();
+        this.bus = new Bus();
+        this.driver = new Driver();
     }
 
     public IntercityLine(Carrier carrier, City departureCity, List<City> interCities, City arrivalCity) {
@@ -125,7 +134,13 @@ public class IntercityLine implements Serializable {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
-    
-    
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
     
 }

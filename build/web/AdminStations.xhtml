@@ -16,7 +16,7 @@ and open the template in the editor.
     <h:body>
 
     <h:form id="stationForm">
-        <h:dataTable id="stationTable" value="#{AdminStationController.allStations}" var="station">
+        <h:dataTable id="stationTable" value="#{AdminController.stationService.allStations}" var="station">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Name"/>
@@ -28,48 +28,43 @@ and open the template in the editor.
                 <f:facet name="header">
                     <h:outputText value="City"/>
                 </f:facet>
-                <h:commandButton value="Choose" action="AdminCities" rendered="#{station.editable}" />
+                <h:commandButton value="Set" action="AdminCities" rendered="#{station.editable}" />
                 <h:outputText value="#{station.city.name}" rendered="#{not station.editable}" />
             </h:column>
             <h:column>
-                <h:commandLink value="Edit" action="#{AdminStationController.edit(station)}" rendered="#{not station.editable}" >
+                <h:commandLink value="Edit" action="#{AdminController.stationService.edit(station)}" rendered="#{not station.editable}" >
                     <f:ajax render="stationForm:stationTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminStationController.update(station)}" rendered="#{station.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.stationService.update(station)}" rendered="#{station.editable}" >
                     <f:ajax execute="@form" render="stationForm:stationTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Cancel" action="#{AdminStationController.cancelEdit(station)}" rendered="#{station.editable}" >
-                    <f:ajax render="stationForm:stationTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminStationController.delete(station)}"
+                <h:commandLink id="Delete" value="delete" action="#{AdminController.stationService.delete(station)}"
                                onclick="return confirm('Are you sure?')">
                     <f:ajax render="stationForm:stationTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Departure Station" action="#{AdminCityLineController.addDepartureStation(station)}"/>
+                <h:commandLink value="Add Departure Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}"/>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Inter Station" action="#{AdminCityLineController.addInterStation(station)}"/>
+                <h:commandLink value="Add Inter Station" action="#{AdminController.cityLineService.editCityLine.interStations.add(station)}"/>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Arrival Station" action="#{AdminCityLineController.addArrivalStation(station)}"/>
+                <h:commandLink value="Add Arrival Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}"/>
             </h:column>
         </h:dataTable>
 
         <h2>Add station to table</h2>
         <h:outputLabel value="Name">
-            <h:inputText value="#{AdminStationController.station.name}" />
+            <h:inputText value="#{AdminController.stationService.newStation.name}" />
         </h:outputLabel><br/>
         <h:outputLabel value="City">
-            <h:commandButton value="Choose" action="AdminCities"/>
-            <h:outputText value="#{AdminStationController.station.city.name}" />
+            <h:commandButton value="Set" action="AdminCities"/>
+            <h:outputText value="#{AdminController.stationService.newStation.city.name}" />
         </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminStationController.save}">
+        <h:commandButton value="Save" action="#{AdminController.stationService.save}">
             <f:ajax execute="stationForm" render="stationForm:stationTable" />
         </h:commandButton>
 
