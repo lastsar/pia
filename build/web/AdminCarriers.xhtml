@@ -16,7 +16,7 @@ and open the template in the editor.
     <h:body>
 
     <h:form id="carrierForm">
-        <h:dataTable id="carrierTable" value="#{AdminCarrierController.allCarriers}" var="carrier">
+        <h:dataTable id="carrierTable" value="#{AdminController.carrierService.allCarriers}" var="carrier">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Name"/>
@@ -53,21 +53,21 @@ and open the template in the editor.
                 <h:outputText value="#{carrier.address.street}" rendered="#{not carrier.editable}" />
             </h:column>
             <h:column>
-                <h:commandLink value="Edit" action="#{AdminCarrierController.edit(carrier)}" rendered="#{not carrier.editable}" >
+                <h:commandLink value="Edit" action="#{AdminController.carrierService.edit(carrier)}" rendered="#{not carrier.editable}" >
                     <f:ajax render="carrierForm:carrierTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminCarrierController.update(carrier)}" rendered="#{carrier.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.carrierService.update(carrier)}" rendered="#{carrier.editable}" >
                     <f:ajax execute="@form" render="carrierForm:carrierTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Cancel" action="#{AdminCarrierController.cancelEdit(carrier)}" rendered="#{carrier.editable}" >
+                <h:commandLink id="Delete" value="delete" action="#{AdminController.carrierService.delete(carrier)}"
+                               onclick="return confirm('Are you sure?')">
                     <f:ajax render="carrierForm:carrierTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminCarrierController.delete(carrier)}"
-                               onclick="return confirm('Are you sure?')">
+                <h:commandLink value="Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setCarrier(carrier)}" >
                     <f:ajax render="carrierForm:carrierTable" />
                 </h:commandLink>
             </h:column>
@@ -75,21 +75,21 @@ and open the template in the editor.
 
         <h2>Add carrier to table</h2>
         <h:outputLabel value="Name">
-            <h:inputText value="#{AdminCarrierController.carrier.name}" />
+            <h:inputText value="#{AdminController.carrier.name}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Phone">
-            <h:inputText value="#{AdminCarrierController.carrier.phone}" />
+            <h:inputText value="#{AdminController.carrier.phone}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Municipality">
-            <h:inputText value="#{AdminCarrierController.carrier.address.municipality}" />
+            <h:inputText value="#{AdminController.carrier.address.municipality}" />
         </h:outputLabel><br/>
         <h:outputLabel value="City">
-            <h:inputText value="#{AdminCarrierController.carrier.address.city}" />
+            <h:inputText value="#{AdminController.carrier.address.city}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Street">
-            <h:inputText value="#{AdminCarrierController.carrier.address.street}" />
+            <h:inputText value="#{AdminController.carrier.address.street}" />
         </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminCarrierController.save}">
+        <h:commandButton value="Save" action="#{AdminController.save}">
             <f:ajax execute="carrierForm" render="carrierForm:carrierTable" />
         </h:commandButton>
 

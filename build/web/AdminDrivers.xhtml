@@ -16,7 +16,7 @@ and open the template in the editor.
     <h:body>
 
     <h:form id="driverForm">
-        <h:dataTable id="driverTable" value="#{AdminDriverController.allDrivers}" var="driver">
+        <h:dataTable id="driverTable" value="#{AdminController.driverService.allDrivers}" var="driver">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="First Name"/>
@@ -54,47 +54,45 @@ and open the template in the editor.
                 </h:outputText>
             </h:column>
             <h:column>
-                <h:commandLink value="Edit" action="#{AdminDriverController.edit(driver)}" rendered="#{not driver.editable}" >
+                <h:commandLink value="Edit" action="#{AdminController.driverService.edit(driver)}" rendered="#{not driver.editable}" >
                     <f:ajax render="driverForm:driverTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminDriverController.update(driver)}" rendered="#{driver.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.driverService.update(driver)}" rendered="#{driver.editable}" >
                     <f:ajax execute="@form" render="driverForm:driverTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Cancel" action="#{AdminDriverController.cancelEdit(driver)}" rendered="#{driver.editable}" >
-                    <f:ajax render="driverForm:driverTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminDriverController.delete(driver)}"
+                <h:commandLink id="Delete" value="delete" action="#{AdminController.driverService.delete(driver)}"
                                onclick="return confirm('Are you sure?')">
                     <f:ajax render="driverForm:driverTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Driver To City Line" action="#{AdminCityLineController.addDriver(driver)}"/>
+                <h:commandLink value="Add Driver To City Line" action="#{AdminController.cityLineService.editCityLine.drivers.add(driver)}"/>
+            </h:column>
+            <h:column>
+                <h:commandLink value="Add Driver To Inter City Line" action="#{AdminController.intercityLineService.editIntercityLine.setDriver(driver)}"/>
             </h:column>
         </h:dataTable>
 
         <h2>Add driver to table</h2>
         <h:outputLabel value="First Name">
-            <h:inputText value="#{AdminDriverController.driver.firstName}" />
+            <h:inputText value="#{AdminController.driverService.newDriver.firstName}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Last Name">
-            <h:inputText value="#{AdminDriverController.driver.lastName}" />
+            <h:inputText value="#{AdminController.driverService.newDriver.lastName}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Date Of Birdth">
-            <h:inputText value="#{AdminDriverController.driver.dateOfBirdth}" >
+            <h:inputText value="#{AdminController.driverService.newDriver.dateOfBirdth}" >
                 <f:convertDateTime pattern = "dd-mm-yyyy" />
             </h:inputText>
         </h:outputLabel><br/>
         <h:outputLabel value="Driver License Year">
-            <h:inputText value="#{AdminDriverController.driver.driverLicenseIssueYear}" >
+            <h:inputText value="#{AdminController.driverService.newDriver.driverLicenseIssueYear}" >
                 <f:convertDateTime pattern = "yyyy" />
             </h:inputText>
         </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminDriverController.save}">
+        <h:commandButton value="Save" action="#{AdminController.driverService.save()}">
             <f:ajax execute="driverForm" render="driverForm:driverTable" />
         </h:commandButton>
 

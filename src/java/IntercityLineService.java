@@ -66,7 +66,8 @@ public class IntercityLineService {
     }
     
     public void update(IntercityLine intercityLine){
-        this.editIntercityLine = intercityLine;
+        this.editIntercityLine.setDepartureDateAndTime(intercityLine.getDepartureDateAndTime());
+        this.editIntercityLine.setArrivalDateAndTime(intercityLine.getArrivalDateAndTime());
         this.service.update(this.editIntercityLine, this.allIntercityLines);
         this.editIntercityLine.setEditable(false);
         this.editIntercityLine = null;
