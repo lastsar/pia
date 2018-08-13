@@ -28,7 +28,7 @@ public class CityService {
         
         this.service = new Service<>();
         
-        this.editCity = null;
+        this.editCity = new City();
         this.newCity = new City();
         this.allCities = service.getAll("from City");
     }
@@ -58,18 +58,15 @@ public class CityService {
     }
     
     public void edit(City city){
-        if(this.editCity != null){
-            this.editCity.setEditable(false);
-        }
+        this.editCity.setEditable(false);
         this.editCity = city;
         this.editCity.setEditable(true);
     }
     
-    public void update(City city){
-        this.editCity = city;
-        this.service.update(this.editCity, this.allCities);
+    public void update(){
+        this.service.update(this.editCity);
         this.editCity.setEditable(false);
-        this.editCity = null;
+        this.editCity = new City();
     }
 
     public void delete(City city){

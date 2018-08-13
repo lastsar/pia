@@ -17,7 +17,7 @@ and open the template in the editor.
     <h:body>
 
     <h:form id="cityLineForm">
-        <h:dataTable id="cityLineTable" value="#{AdminCityLineController.allCityLines}" var="cityLine">
+        <h:dataTable id="cityLineTable" value="#{AdminController.cityLineService.allCityLines}" var="cityLine">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Line Number"/>
@@ -40,8 +40,8 @@ and open the template in the editor.
                 <f:facet name="header">
                     <h:outputText value="Departure Station"/>
                 </f:facet>
-                <h:commandButton value="Choose" action="AdminStations" rendered="#{cityLine.editable}" />
-                <h:outputText value="#{cityLine.departureStation.name}" rendered="#{not cityLine.editable}" />
+                <h:commandButton value="Add" action="AdminStations" rendered="#{cityLine.editable}" />
+                <h:outputText value="#{cityLine.departureStation.name}" />
             </h:column>
             <h:column>
                 <f:facet name="header">
@@ -49,40 +49,35 @@ and open the template in the editor.
                 </f:facet>
                 <h:commandButton value="Add" action="AdminStations" rendered="#{cityLine.editable}" />
                 <ui:repeat value="#{cityLine.interStations}" var="station">
-                    #{station.name}
+                    #{station.name}<h:commandButton value="Remove" action="#{AdminController.cityLineService.editCityLine.interStations.remove(station)}" rendered="#{cityLine.editable}" />
                 </ui:repeat>
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Arrival Station"/>
                 </f:facet>
-                <h:commandButton value="Choose" action="AdminStations" rendered="#{cityLine.editable}" />
-                <h:outputText value="#{cityLine.arrivalStation.name}" rendered="#{not cityLine.editable}" />
+                <h:commandButton value="Add" action="AdminStations" rendered="#{cityLine.editable}" />
+                <h:outputText value="#{cityLine.arrivalStation.name}" />
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Drivers"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminStations" rendered="#{cityLine.editable}" />
+                <h:commandButton value="Add" action="AdminDrivers" rendered="#{cityLine.editable}" />
                 <ui:repeat value="#{cityLine.drivers}" var="driver">
-                    #{driver.firstName}
+                    #{driver.firstName}<h:commandButton value="Remove" action="#{AdminController.cityLineService.editCityLine.drivers.remove(driver)}" rendered="#{cityLine.editable}" />
                 </ui:repeat>
             </h:column>
             <h:column>
-                <h:commandLink value="Edit" action="#{AdminCityLineController.edit(cityLine)}" rendered="#{not cityLine.editable}" >
+                <h:commandLink value="Edit" action="#{AdminController.cityLineService.edit(cityLine)}" rendered="#{not cityLine.editable}" >
                     <f:ajax render="cityLineForm:cityLineTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminCityLineController.update(cityLine)}" rendered="#{cityLine.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.cityLineService.update()}" rendered="#{cityLine.editable}" >
                     <f:ajax execute="@form" render="cityLineForm:cityLineTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Cancel" action="#{AdminCityLineController.cancelEdit(cityLine)}" rendered="#{cityLine.editable}" >
-                    <f:ajax render="cityLineForm:cityLineTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminCityLineController.delete(cityLine)}"
+                <h:commandLink id="Delete" value="delete" action="#{AdminController.cityLineService.delete(cityLine)}"
                                onclick="return confirm('Are you sure?')">
                     <f:ajax render="cityLineForm:cityLineTable" />
                 </h:commandLink>
@@ -91,38 +86,38 @@ and open the template in the editor.
 
         <h2>Add cityLine to table</h2>
         <h:outputLabel value="Line Number">
-            <h:inputText value="#{AdminCityLineController.cityLine.lineNumber}" />
+            <h:inputText value="#{AdminController.cityLineService.newCityLine.lineNumber}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Departure Time">
-            <h:inputText value="#{AdminCityLineController.cityLine.departureTime}" >
+            <h:inputText value="#{AdminController.cityLineService.newCityLine.departureTime}" >
                 <f:convertDateTime pattern = "dd-mm-yyyy" />
             </h:inputText>
         </h:outputLabel><br/>
         <h:outputLabel value="City">
-            <h:commandButton value="Choose" action="AdminCities"/>
-            <h:outputText value="#{AdminCityLineController.cityLine.city.name}" />
+            <h:commandButton value="Add" action="AdminCities"/>
+            <h:outputText value="#{AdminController.cityLineService.newCityLine.city.name}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Departure Station">
-            <h:commandButton value="Choose" action="AdminStations"/>
-            <h:outputText value="#{AdminCityLineController.cityLine.departureStation.name}" />
+            <h:commandButton value="Add" action="AdminStations"/>
+            <h:outputText value="#{AdminController.cityLineService.newCityLine.departureStation.name}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Inter Stations">
             <h:commandButton value="Add" action="AdminStations"/>
-            <ui:repeat value="#{AdminCityLineController.cityLine.interStations}" var="station">
-                #{station.name}
+            <ui:repeat value="#{AdminController.cityLineService.newCityLine.interStations}" var="station">
+                #{station.name}<h:commandButton value="Remove" action="#{AdminController.cityLineService.newCityLine.interStations.remove(station)}" />
             </ui:repeat>
         </h:outputLabel><br/>
         <h:outputLabel value="Arrival Station">
-            <h:commandButton value="Choose" action="AdminStations"/>
-            <h:outputText value="#{AdminCityLineController.cityLine.arrivalStation.name}" />
+            <h:commandButton value="Add" action="AdminStations"/>
+            <h:outputText value="#{AdminController.cityLineService.newCityLine.arrivalStation.name}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Drivers">
             <h:commandButton value="Add" action="AdminDrivers"/>
-            <ui:repeat value="#{AdminCityLineController.cityLine.drivers}" var="driver">
-                #{driver.firstName}
+            <ui:repeat value="#{AdminController.cityLineService.newCityLine.drivers}" var="driver">
+                #{driver.firstName}<h:commandButton value="Remove" action="#{AdminController.cityLineService.newCityLine.drivers.remove(driver)}" />
             </ui:repeat>
         </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminCityLineController.save}">
+        <h:commandButton value="Save" action="#{AdminController.cityLineService.save()}">
             <f:ajax execute="cityLineForm" render="cityLineForm:cityLineTable" />
         </h:commandButton>
 

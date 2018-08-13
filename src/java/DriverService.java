@@ -28,7 +28,7 @@ public class DriverService {
         
         this.service = new Service<>();
         
-        this.editDriver = null;
+        this.editDriver = new Driver();
         this.newDriver = new Driver();
         this.allDrivers = service.getAll("from Driver");
     }
@@ -58,18 +58,15 @@ public class DriverService {
     }
     
     public void edit(Driver driver){
-        if(this.editDriver != null){
-            this.editDriver.setEditable(false);
-        }
+        this.editDriver.setEditable(false);
         this.editDriver = driver;
         this.editDriver.setEditable(true);
     }
     
-    public void update(Driver driver){
-        this.editDriver = driver;
-        this.service.update(this.editDriver, this.allDrivers);
+    public void update(){
+        this.service.update(this.editDriver);
         this.editDriver.setEditable(false);
-        this.editDriver = null;
+        this.editDriver = new Driver();
     }
 
     public void delete(Driver driver){

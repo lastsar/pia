@@ -28,7 +28,7 @@ and open the template in the editor.
                 <h:commandLink value="Edit" action="#{AdminController.cityService.edit(city)}" rendered="#{not city.editable}" >
                     <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.cityService.update(city)}" rendered="#{city.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.cityService.update()}" rendered="#{city.editable}" >
                     <f:ajax execute="@form" render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
@@ -39,28 +39,53 @@ and open the template in the editor.
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add To Station" action="#{AdminController.stationService.editStation.setCity(city)}" >
-                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                <h:commandLink value="EDIT Add to Station" action="#{AdminController.stationService.editStation.setCity(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add To City Line" action="#{AdminController.cityLineService.editCityLine.setCity(city)}" >
-                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                <h:commandLink value="NEW Add to Station" action="#{AdminController.stationService.newStation.setCity(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Departure City" action="#{AdminController.intercityLineService.editIntercityLine.setDepartureCity(city)}" >
-                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                <h:commandLink value="EDIT Add To City Line" action="#{AdminController.cityLineService.editCityLine.setCity(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Inter City" action="#{AdminController.intercityLineService.editIntercityLine.interCities.add(city)}" >
-                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                <h:commandLink value="NEW Add To City Line" action="#{AdminController.cityLineService.newCityLine.setCity(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Arrival City" action="#{AdminController.intercityLineService.editIntercityLine.setArrivalCity(city)}" >
-                    <f:ajax execute="@form" render="cityForm:cityTable" />
+                <h:commandLink value="EDIT Add Departure City" action="#{AdminController.intercityLineService.editIntercityLine.setDepartureCity(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="EDIT Add Inter City" action="#{AdminController.intercityLineService.editIntercityLine.interCities.add(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="EDIT Add Arrival City" action="#{AdminController.intercityLineService.editIntercityLine.setArrivalCity(city)}" >
+                    <f:ajax />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="NEW Add Departure City" action="#{AdminController.intercityLineService.newIntercityLine.setDepartureCity(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="NEW Add Inter City" action="#{AdminController.intercityLineService.newIntercityLine.interCities.add(city)}" >
+                    <f:ajax render="cityForm:cityTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="NEW Add Arrival City" action="#{AdminController.intercityLineService.newIntercityLine.setArrivalCity(city)}" >
+                    <f:ajax />
                 </h:commandLink>
             </h:column>
         </h:dataTable>

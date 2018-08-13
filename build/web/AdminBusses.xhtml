@@ -42,7 +42,7 @@ and open the template in the editor.
                 <h:commandLink value="Edit" action="#{AdminController.busService.edit(bus)}" rendered="#{not bus.editable}" >
                     <f:ajax render="busForm:busTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.busService.update(bus)}" rendered="#{bus.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.busService.update()}" rendered="#{bus.editable}" >
                     <f:ajax execute="@form" render="busForm:busTable" />
                 </h:commandLink>
             </h:column>
@@ -53,7 +53,12 @@ and open the template in the editor.
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setBus(bus)}" >
+                <h:commandLink value="EDIT Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setBus(bus)}" >
+                    <f:ajax render="busForm:busTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="NEW Add to Intercity Line" action="#{AdminController.intercityLineService.newIntercityLine.setBus(bus)}" >
                     <f:ajax render="busForm:busTable" />
                 </h:commandLink>
             </h:column>
@@ -61,13 +66,13 @@ and open the template in the editor.
 
         <h2>Add bus to table</h2>
         <h:outputLabel value="Brand">
-            <h:inputText id="brand" value="#{AdminController.busService.editBus.brand}" />
+            <h:inputText id="brand" value="#{AdminController.busService.newBus.brand}" />
         </h:outputLabel>
         <h:outputLabel value="Model">
-            <h:inputText id="model" value="#{AdminController.busService.editBus.model}" />
+            <h:inputText id="model" value="#{AdminController.busService.newBus.model}" />
         </h:outputLabel>
         <h:outputLabel value="NumberOfSeats">
-            <h:inputText id="numberOfSeats" value="#{AdminController.busService.editBus.numberOfSeats}" />
+            <h:inputText id="numberOfSeats" value="#{AdminController.busService.newBus.numberOfSeats}" />
         </h:outputLabel>
         <h:commandButton value="Save" action="#{AdminController.busService.save()}">
             <f:ajax execute="busForm" render="busForm:busTable" />

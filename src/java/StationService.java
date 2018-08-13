@@ -25,7 +25,7 @@ public class StationService {
         
         service = new Service<>();
         
-        this.editStation = null;
+        this.editStation = new Station();
         this.newStation = new Station();
         this.allStations = service.getAll("from Station");
         
@@ -56,18 +56,15 @@ public class StationService {
     }
 
     public void edit(Station station){
-        if(this.editStation != null){
-            this.editStation.setEditable(false);
-        }
+        this.editStation.setEditable(false);
         this.editStation = station;
         this.editStation.setEditable(true);
     }
     
-    public void update(Station station){
-        this.editStation.setName(station.getName());
-        this.service.update(this.editStation, this.allStations);
+    public void update(){
+        this.service.update(this.editStation);
         this.editStation.setEditable(false);
-        this.editStation = null;
+        this.editStation = new Station();
     }
 
     public void delete(Station station){

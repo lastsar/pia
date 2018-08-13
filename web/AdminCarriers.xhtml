@@ -56,7 +56,7 @@ and open the template in the editor.
                 <h:commandLink value="Edit" action="#{AdminController.carrierService.edit(carrier)}" rendered="#{not carrier.editable}" >
                     <f:ajax render="carrierForm:carrierTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.carrierService.update(carrier)}" rendered="#{carrier.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.carrierService.update()}" rendered="#{carrier.editable}" >
                     <f:ajax execute="@form" render="carrierForm:carrierTable" />
                 </h:commandLink>
             </h:column>
@@ -67,7 +67,12 @@ and open the template in the editor.
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setCarrier(carrier)}" >
+                <h:commandLink value="EDIT Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setCarrier(carrier)}" >
+                    <f:ajax render="carrierForm:carrierTable" />
+                </h:commandLink>
+            </h:column>
+            <h:column>
+                <h:commandLink value="NEW Add to Intercity Line" action="#{AdminController.intercityLineService.newIntercityLine.setCarrier(carrier)}" >
                     <f:ajax render="carrierForm:carrierTable" />
                 </h:commandLink>
             </h:column>
@@ -75,21 +80,21 @@ and open the template in the editor.
 
         <h2>Add carrier to table</h2>
         <h:outputLabel value="Name">
-            <h:inputText value="#{AdminController.carrier.name}" />
+            <h:inputText value="#{AdminController.carrierService.newCarrier.name}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Phone">
-            <h:inputText value="#{AdminController.carrier.phone}" />
+            <h:inputText value="#{AdminController.carrierService.newCarrier.phone}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Municipality">
-            <h:inputText value="#{AdminController.carrier.address.municipality}" />
+            <h:inputText value="#{AdminController.carrierService.newCarrier.address.municipality}" />
         </h:outputLabel><br/>
         <h:outputLabel value="City">
-            <h:inputText value="#{AdminController.carrier.address.city}" />
+            <h:inputText value="#{AdminController.carrierService.newCarrier.address.city}" />
         </h:outputLabel><br/>
         <h:outputLabel value="Street">
-            <h:inputText value="#{AdminController.carrier.address.street}" />
+            <h:inputText value="#{AdminController.carrierService.newCarrier.address.street}" />
         </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminController.save}">
+        <h:commandButton value="Save" action="#{AdminController.carrierService.save()}">
             <f:ajax execute="carrierForm" render="carrierForm:carrierTable" />
         </h:commandButton>
 

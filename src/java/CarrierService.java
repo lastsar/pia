@@ -28,7 +28,7 @@ public class CarrierService {
         
         this.service = new Service<>();
         
-        this.editCarrier = null;
+        this.editCarrier = new Carrier();
         this.newCarrier = new Carrier();
         this.allCarriers = service.getAll("from Carrier");
     }
@@ -58,18 +58,15 @@ public class CarrierService {
     }
     
     public void edit(Carrier carrier){
-        if(this.editCarrier != null){
-            this.editCarrier.setEditable(false);
-        }
+        this.editCarrier.setEditable(false);
         this.editCarrier = carrier;
         this.editCarrier.setEditable(true);
     }
     
-    public void update(Carrier carrier){
-        this.editCarrier = carrier;
-        this.service.update(this.editCarrier, this.allCarriers);
+    public void update(){
+        this.service.update(this.editCarrier);
         this.editCarrier.setEditable(false);
-        this.editCarrier = null;
+        this.editCarrier = new Carrier();
     }
 
     public void delete(Carrier carrier){

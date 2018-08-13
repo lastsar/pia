@@ -28,7 +28,7 @@ public class BusService {
         
         this.service = new Service<>();
         
-        this.editBus = null;
+        this.editBus = new Bus();
         this.newBus = new Bus();
         this.allBusses = service.getAll("from Bus");
     }
@@ -58,18 +58,15 @@ public class BusService {
     }
     
     public void edit(Bus bus){
-        if(this.editBus != null){
-            this.editBus.setEditable(false);
-        }
+        this.editBus.setEditable(false);
         this.editBus = bus;
         this.editBus.setEditable(true);
     }
     
-    public void update(Bus bus){
-        this.editBus = bus;
-        this.service.update(this.editBus, this.allBusses);
+    public void update(){
+        this.service.update(this.editBus);
         this.editBus.setEditable(false);
-        this.editBus = null;
+        this.editBus = new Bus();
     }
 
     public void delete(Bus bus){

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class IntercityLine implements Serializable {
     private Carrier carrier;
     @ManyToOne
     private City departureCity;
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<City> interCities;
     @ManyToOne
     private City arrivalCity;

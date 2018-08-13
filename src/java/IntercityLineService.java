@@ -28,7 +28,7 @@ public class IntercityLineService {
         
         this.service = new Service<>();
         
-        this.editIntercityLine = null;
+        this.editIntercityLine = new IntercityLine();
         this.newIntercityLine = new IntercityLine();
         this.allIntercityLines = service.getAll("from IntercityLine");
     }
@@ -58,19 +58,15 @@ public class IntercityLineService {
     }
     
     public void edit(IntercityLine intercityLine){
-        if(this.editIntercityLine != null){
-            this.editIntercityLine.setEditable(false);
-        }
+        this.editIntercityLine.setEditable(false);
         this.editIntercityLine = intercityLine;
         this.editIntercityLine.setEditable(true);
     }
     
-    public void update(IntercityLine intercityLine){
-        this.editIntercityLine.setDepartureDateAndTime(intercityLine.getDepartureDateAndTime());
-        this.editIntercityLine.setArrivalDateAndTime(intercityLine.getArrivalDateAndTime());
-        this.service.update(this.editIntercityLine, this.allIntercityLines);
+    public void update(){
+        this.service.update(this.editIntercityLine);
         this.editIntercityLine.setEditable(false);
-        this.editIntercityLine = null;
+        this.editIntercityLine = new IntercityLine();
     }
 
     public void delete(IntercityLine intercityLine){

@@ -30,13 +30,12 @@ public class Service<T> {
         return entities;
     }
     
-    public void update(T entity, List<T> entities){
+    public void update(T entity){
         Session session = sessionFactory.getSession();
         session.beginTransaction();
         session.update(entity);
         session.getTransaction().commit();
         session.close();
-        entities.set(entities.indexOf(entity), entity);
     }
     
     public void delete(T entity, List<T> entities){

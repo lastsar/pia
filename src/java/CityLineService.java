@@ -28,7 +28,7 @@ public class CityLineService {
         
         this.service = new Service<>();
         
-        this.editCityLine = null;
+        this.editCityLine = new CityLine();
         this.newCityLine = new CityLine();
         this.allCityLines = service.getAll("from CityLine");
     }
@@ -58,19 +58,15 @@ public class CityLineService {
     }
     
     public void edit(CityLine cityLine){
-        if(this.editCityLine != null){
-            this.editCityLine.setEditable(false);
-        }
+        this.editCityLine.setEditable(false);
         this.editCityLine = cityLine;
         this.editCityLine.setEditable(true);
     }
     
-    public void update(CityLine cityLine){
-        this.editCityLine.setLineNumber(cityLine.getLineNumber());
-        this.editCityLine.setDepartureTime(cityLine.getDepartureTime());
-        this.service.update(this.editCityLine, this.allCityLines);
+    public void update(){
+        this.service.update(this.editCityLine);
         this.editCityLine.setEditable(false);
-        this.editCityLine = null;
+        this.editCityLine = new CityLine();
     }
 
     public void delete(CityLine cityLine){

@@ -57,7 +57,7 @@ and open the template in the editor.
                 <h:commandLink value="Edit" action="#{AdminController.driverService.edit(driver)}" rendered="#{not driver.editable}" >
                     <f:ajax render="driverForm:driverTable" />
                 </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.driverService.update(driver)}" rendered="#{driver.editable}" >
+                <h:commandLink value="Update" action="#{AdminController.driverService.update()}" rendered="#{driver.editable}" >
                     <f:ajax execute="@form" render="driverForm:driverTable" />
                 </h:commandLink>
             </h:column>
@@ -68,10 +68,16 @@ and open the template in the editor.
                 </h:commandLink>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Driver To City Line" action="#{AdminController.cityLineService.editCityLine.drivers.add(driver)}"/>
+                <h:commandLink value="EDIT Add Driver To City Line" action="#{AdminController.cityLineService.editCityLine.drivers.add(driver)}"/>
             </h:column>
             <h:column>
-                <h:commandLink value="Add Driver To Inter City Line" action="#{AdminController.intercityLineService.editIntercityLine.setDriver(driver)}"/>
+                <h:commandLink value="NEW Add Driver To City Line" action="#{AdminController.cityLineService.newCityLine.drivers.add(driver)}"/>
+            </h:column>
+            <h:column>
+                <h:commandLink value="EDIT Add Driver To Inter City Line" action="#{AdminController.intercityLineService.editIntercityLine.setDriver(driver)}"/>
+            </h:column>
+            <h:column>
+                <h:commandLink value="NEW Add Driver To Inter City Line" action="#{AdminController.intercityLineService.newIntercityLine.setDriver(driver)}"/>
             </h:column>
         </h:dataTable>
 
