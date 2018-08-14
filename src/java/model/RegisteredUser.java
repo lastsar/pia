@@ -35,21 +35,11 @@ public class RegisteredUser implements Serializable {
     private String phoneNumber;
     private String category;
     private String email;
+    private Boolean status;
 
     public RegisteredUser() {
         this.address = new Address();
-    }
-
-    public RegisteredUser(String firstName, String lastName, String userName, String password, Address address, Date dateOfBirdth, String phoneNumber, String category, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.address = address;
-        this.dateOfBirdth = dateOfBirdth;
-        this.phoneNumber = phoneNumber;
-        this.category = category;
-        this.email = email;
+        this.status = false;
     }
 
     public int getId() {
@@ -130,6 +120,14 @@ public class RegisteredUser implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
     
 }

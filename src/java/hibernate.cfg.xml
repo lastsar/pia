@@ -58,7 +58,7 @@ Contributor(s):
     <mapping class="model.Carrier"/>
     <mapping class="model.IntercityLine"/>
     <mapping class="model.CityLine"/>
-    
+    <mapping class="model.TicketOffer"/>
     
     
   </session-factory>

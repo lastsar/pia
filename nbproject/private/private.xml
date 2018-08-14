@@ -14,13 +14,16 @@
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminIntercityLines.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Bus.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminDrivers.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Ticket.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Carrier.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Reservation.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminCityLines.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Driver.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminStations.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/hibernate.cfg.xml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminCarriers.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/IntercityLineService.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/TicketOfferService.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/Service.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/SessionFactory.java</file>
@@ -31,10 +34,12 @@
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/WEB-INF/beans.xml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/CarrierService.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/CityLineService.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/TicketOffer.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/RegisteredUser.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminBusses.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminCities.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminTicketOffers.xhtml</file>
         </group>
     </open-files>
 </project-private>

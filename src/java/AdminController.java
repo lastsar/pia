@@ -1,20 +1,6 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import model.Address;
-import model.Bus;
-import model.Carrier;
-import model.City;
-import model.CityLine;
-import model.Driver;
-import model.IntercityLine;
-import model.Station;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -36,6 +22,7 @@ public class AdminController {
     private BusService busService;
     private CarrierService carrierService;
     private IntercityLineService intercityLineService;
+    private TicketOfferService ticketOfferService;
     
 
     public AdminController() {
@@ -47,7 +34,7 @@ public class AdminController {
         this.busService = new BusService();
         this.carrierService = new CarrierService();
         this.intercityLineService = new IntercityLineService();
-        
+        this.ticketOfferService = new TicketOfferService();
     }
     
 
@@ -106,5 +93,14 @@ public class AdminController {
     public void setIntercityLineService(IntercityLineService intercityLineService) {
         this.intercityLineService = intercityLineService;
     }
+
+    public TicketOfferService getTicketOfferService() {
+        return ticketOfferService;
+    }
+
+    public void setTicketOfferService(TicketOfferService ticketOfferService) {
+        this.ticketOfferService = ticketOfferService;
+    }
+    
     
 }
