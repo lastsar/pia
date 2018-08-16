@@ -57,5 +57,15 @@ public class Reservation implements Serializable {
     public void setApproved(Boolean approved) {
         this.approved = approved;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    
     
 }

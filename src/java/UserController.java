@@ -27,53 +27,34 @@ import org.hibernate.cfg.Configuration;
 @SessionScoped
 public class UserController {
     
-    private static final SessionFactory SESSION_FACTORY = new Configuration().configure().buildSessionFactory();
+    private RegisteredUser user;
     
-    public void register(){
-        
-        RegisteredUser user = new RegisteredUser();
-        
-        try {
-            String firstName = "Lazar";
-            String lastName = "Pejic";
-            String userName = "laki95";
-            String password = "programer";
-            
-            String municipality = "Uzice";
-            String city = "Uzice";
-            String street = "Ratarska 69/39";
-            Address address = new Address(municipality, city, street);
-            String sDate = "31/12/1998";
-            Date date=new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
-            String phoneNumber = "065/936-6398";
-            String category =  "Student";
-            String email = "pejiclazar95@gmail.com";
-            
-            
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setUserName(userName);
-            user.setPassword(password);
-            user.setAddress(address);
-            user.setDateOfBirdth(date);
-            user.setPhoneNumber(phoneNumber);
-            user.setCategory(category);
-            user.setEmail(email);
-            
-            
+    
+    public UserController(){
+        user = new RegisteredUser();
+    }
 
-            
-        } catch (ParseException ex) {//invalid input
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-        Session session = SESSION_FACTORY.openSession();
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
+    public RegisteredUser getUser() {
+        return user;
+    }
+
+    public void setUser(RegisteredUser user) {
+        this.user = user;
     }
     
-
+    public String login(){
+        
+        //if user is registered put user data in global scope and redirect him to RegisteredUser.xhtml
+        return "RegisteredUser";
+        //othervise redirect him to Register.xhtml
+        
+    }
+    
+    public String register(){
+        //if dont have an account register user and redirect him to login page
+        //if have account redirect him to login page
+        return "RegisteredUser";
+    }
+    
     
 }

@@ -70,6 +70,14 @@ public class TicketOffer implements Serializable {
     public void setEditable(Boolean editable) {
         this.editable = editable;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
     
     
 }
