@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import model.City;
+import model.CityLine;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -76,6 +77,10 @@ public class CityService {
     public void save(){
         this.service.save(this.newCity, this.allCities);
         this.newCity = new City();
+    }
+    
+    public List<City> getByExample(City example){
+        return service.getByExample(example);
     }
     
 }

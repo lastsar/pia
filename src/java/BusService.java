@@ -78,4 +78,8 @@ public class BusService {
         this.newBus = new Bus();
     }
     
+    public List<Bus> getByExample(Bus exampleBus){
+        return service.getByExample(exampleBus);
+    }
+    
 }

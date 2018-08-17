@@ -53,9 +53,9 @@ public class TicketOfferService {
         this.allTicketOffers = allTicketOffers;
     }
     
-    public void edit(TicketOffer bus){
+    public void edit(TicketOffer ticketOffer){
         this.editTicketOffer.setEditable(false);
-        this.editTicketOffer = bus;
+        this.editTicketOffer = ticketOffer;
         this.editTicketOffer.setEditable(true);
     }
     
@@ -65,8 +65,8 @@ public class TicketOfferService {
         this.editTicketOffer = new TicketOffer();
     }
 
-    public void delete(TicketOffer bus){
-        this.service.delete(bus, this.allTicketOffers);
+    public void delete(TicketOffer ticketOffer){
+        this.service.delete(ticketOffer, this.allTicketOffers);
     }
     
     public void save(){
@@ -74,4 +74,7 @@ public class TicketOfferService {
         this.newTicketOffer = new TicketOffer();
     }
     
+    public List<TicketOffer> getByExample(TicketOffer example){
+        return service.getByExample(example);
+    }
 }

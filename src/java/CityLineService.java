@@ -78,4 +78,8 @@ public class CityLineService {
         this.newCityLine = new CityLine();
     }
     
+    public List<CityLine> getByExample(CityLine example){
+        return service.getByExample(example);
+    }
+    
 }

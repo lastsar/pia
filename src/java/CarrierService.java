@@ -78,4 +78,8 @@ public class CarrierService {
         this.newCarrier = new Carrier();
     }
     
+    public List<Carrier> getByExample(Carrier exampleCarrier){
+        return service.getByExample(exampleCarrier);
+    }
+    
 }

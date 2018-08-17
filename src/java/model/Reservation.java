@@ -27,11 +27,15 @@ public class Reservation implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER)
     private IntercityLine line;
     private Boolean approved;
+    
+    private transient Boolean editable;
+    
 
     public Reservation() {
         this.user = new RegisteredUser();
         this.line = new IntercityLine();
         this.approved = false;
+        this.editable = false;
     }
 
     public RegisteredUser getUser() {
@@ -65,7 +69,14 @@ public class Reservation implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
     
     
 }

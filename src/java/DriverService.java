@@ -78,4 +78,8 @@ public class DriverService {
         this.newDriver = new Driver();
     }
     
+    public List<Driver> getByExample(Driver example){
+        return service.getByExample(example);
+    }
+    
 }

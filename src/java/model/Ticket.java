@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -22,16 +23,19 @@ public class Ticket implements Serializable {
     
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    @OneToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     private RegisteredUser user;
     private String duration;
     private String category;
     private Integer price;
     private Boolean approved;
+    
+    private transient Boolean editable;
 
     public Ticket() {
         this.user = new RegisteredUser();
         this.approved = false;
+        this.editable = false;
     }
 
     public RegisteredUser getUser() {
@@ -81,7 +85,13 @@ public class Ticket implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    
-    
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
     
 }

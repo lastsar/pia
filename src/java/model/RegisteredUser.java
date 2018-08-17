@@ -6,13 +6,18 @@
 package model;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -36,6 +41,9 @@ public class RegisteredUser implements Serializable {
     private String category;
     private String email;
     private Boolean status;
+    
+    private transient Boolean editable;
+    
 
     public RegisteredUser() {
         this.address = new Address();
@@ -79,7 +87,15 @@ public class RegisteredUser implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+            this.password = myHash;
+        } catch (NoSuchAlgorithmException ex) {
+            this.password = password;
+        }
     }
 
     public Address getAddress() {
@@ -129,5 +145,15 @@ public class RegisteredUser implements Serializable {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
+    
+    
     
 }

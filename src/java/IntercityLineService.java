@@ -78,4 +78,8 @@ public class IntercityLineService {
         this.newIntercityLine = new IntercityLine();
     }
     
+    public List<IntercityLine> getByExample(IntercityLine example){
+        return service.getByExample(example);
+    }
+    
 }

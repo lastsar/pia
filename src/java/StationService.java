@@ -76,6 +76,8 @@ public class StationService {
         this.newStation = new Station();
     }
     
-    
+    public List<Station> getByExample(Station example){
+        return service.getByExample(example);
+    }
     
 }
