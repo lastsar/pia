@@ -15,8 +15,10 @@ import model.Station;
  */
 public class StationService {
     
+    private Station exampleStation;
     private Station editStation;
     private Station newStation;
+    private List<Station> stations;
     private List<Station> allStations;
     
     private Service<Station> service;
@@ -25,12 +27,30 @@ public class StationService {
         
         service = new Service<>();
         
+        this.exampleStation = new Station();
         this.editStation = new Station();
         this.newStation = new Station();
+        this.stations = new ArrayList<>();
         this.allStations = service.getAll("from Station");
         
     }
 
+    public List<Station> getStations() {
+        return stations;
+    }
+
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
+    }
+
+    public Station getExampleStation() {
+        return exampleStation;
+    }
+
+    public void setExampleStation(Station exampleStation) {
+        this.exampleStation = exampleStation;
+    }
+    
     public Station getEditStation() {
         return editStation;
     }
@@ -76,8 +96,8 @@ public class StationService {
         this.newStation = new Station();
     }
     
-    public List<Station> getByExample(Station example){
-        return service.getByExample(example);
+    public void setByExample(){
+        this.stations = service.getByExample(this.exampleStation);
     }
     
 }

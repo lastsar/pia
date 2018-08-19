@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import model.RegisteredUser;
 
@@ -15,8 +16,10 @@ import model.RegisteredUser;
 
 public class RegisteredUserService {
     
+    private RegisteredUser exampleRegisteredUser;
     private RegisteredUser editRegisteredUser;
     private RegisteredUser newRegisteredUser;
+    private List<RegisteredUser> registeredUsers;
     private List<RegisteredUser> allRegisteredUsers;
     
     private Service<RegisteredUser> service;
@@ -24,9 +27,28 @@ public class RegisteredUserService {
     
     public RegisteredUserService(){    
         this.service = new Service();
+        
+        this.exampleRegisteredUser = new RegisteredUser();
         this.editRegisteredUser = new RegisteredUser();
         this.newRegisteredUser = new RegisteredUser();
+        this.registeredUsers = new ArrayList<>();
         this.allRegisteredUsers = service.getAll("from RegisteredUser");
+    }
+
+    public RegisteredUser getExampleRegisteredUser() {
+        return exampleRegisteredUser;
+    }
+
+    public void setExampleRegisteredUser(RegisteredUser exampleRegisteredUser) {
+        this.exampleRegisteredUser = exampleRegisteredUser;
+    }
+
+    public List<RegisteredUser> getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public void setRegisteredUsers(List<RegisteredUser> registeredUsers) {
+        this.registeredUsers = registeredUsers;
     }
 
     public RegisteredUser getEditRegisteredUser() {
@@ -74,9 +96,8 @@ public class RegisteredUserService {
         this.newRegisteredUser = new RegisteredUser();
     }
     
-    public List<RegisteredUser> getByExample(RegisteredUser registeredUser){
-        List<RegisteredUser> registeredUsers = this.service.getByExample(registeredUser);
-        return registeredUsers;
+    public void setByExample(){
+        this.registeredUsers = this.service.getByExample(this.exampleRegisteredUser);
     }
     
 }

@@ -40,7 +40,7 @@ public class CityLine implements Serializable {
     private Station arrivalStation;
     
     @Temporal(javax.persistence.TemporalType.TIME)
-    private Date departureTime;
+    private Date departureTime; 
     @ManyToMany(fetch=FetchType.EAGER)
     private List<Driver> drivers;
     

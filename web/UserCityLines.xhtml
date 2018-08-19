@@ -5,12 +5,86 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <div>TODO write content</div>
+        
+        <h:form id="form">
+           <h:dataTable id="linesTable" value="#{UserController.cityLineController.cityLineService.cityLines}" var="line">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Line Number"/>
+                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.lineNumber}"/>
+                </f:facet>
+                <h:outputText value="#{line.lineNumber}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Departure Station"/>
+                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.departureStationName}"/>
+                </f:facet>
+                <h:outputText value="#{line.departureStation.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Interstations"/>
+                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.interstationName}"/>
+                </f:facet>
+                <ui:repeat value="#{line.interStations}" var="station">
+                    #{station.name}
+                </ui:repeat>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Arrval Station"/>
+                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.arrivalStationName}"/>
+                </f:facet>
+                <h:outputText value="#{line.arrivalStation.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Filter"/>
+                </f:facet>
+                <h:commandButton value="filter" action="#{UserController.cityLineController.cityLineService.filterCityLines()}">
+                    <f:ajax execute="form" render="form:linesTable" />
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Details"/>
+                </f:facet>
+                <h:commandButton action="#{UserController.cityLineController.cityLineService.setEditCityLine(line)}">
+                    <f:ajax execute="form" render="detailsTable" />
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+        </h:form>
+        
+        
+        <h:dataTable id="detailsTable">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Departure Time" />
+                </f:facet>
+                <h:outputText value="#{UserController.cityLineController.cityLineService.editCityLine.departureTime}">
+                    <f:convertDateTime pattern = "HH:mm:ss" />
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Drivers" />
+                </f:facet>
+                <ui:repeat value="#{UserController.cityLineController.cityLineService.editCityLine.drivers}" var="driver">
+                    #{driver.firstName}
+                </ui:repeat>
+            </h:column>
+        </h:dataTable>
     </body>
 </html>

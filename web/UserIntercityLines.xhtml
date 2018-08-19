@@ -5,12 +5,110 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <div>TODO write content</div>
+        
+        <h:form id="form">
+           <h:dataTable id="linesTable" value="#{UserController.intercityLineController.intercityLineService.intercityLines}" var="line">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Line Number"/>
+                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.carrierName}"/>
+                </f:facet>
+                <h:outputText value="#{line.carrier.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Departure Station"/>
+                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.departureCityName}"/>
+                </f:facet>
+                <h:outputText value="#{line.departureCity.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Interstations"/>
+                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.intercityName}"/>
+                </f:facet>
+                <ui:repeat value="#{line.interCities}" var="city">
+                    #{city.name}
+                </ui:repeat>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Arrval Station"/>
+                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.arrivalCityName}"/>
+                </f:facet>
+                <h:outputText value="#{line.arrivalCity.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Departure Date And Time"/>
+                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.departureDateAndTime}"/>
+                </f:facet>
+                <h:outputText value="#{line.departureDateAndTime}">
+                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Arrval Date And Time"/>
+                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.arrivalDateAndTime}"/>
+                </f:facet>
+                <h:outputText value="#{line.arrivalDateAndTime}">
+                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Filter"/>
+                </f:facet>
+                <h:commandButton value="filter" action="#{UserController.intercityLineController.intercityLineService.filterIntercityLines()}">
+                    <f:ajax execute="form" render="form:linesTable" />
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Details"/>
+                </f:facet>
+                <h:commandButton value="Details" action="#{UserController.intercityLineController.intercityLineService.setEditIntercityLine(line)}">
+                    <f:ajax execute="form" render="detailsTable" />
+                </h:commandButton>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Reservation"/>
+                </f:facet>
+                <h:commandButton value="Reserve" action="#{UserController.intercityLineController.reserve(line)}">
+                    <f:ajax execute="form" render="detailsTable" />
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+        </h:form>
+        
+        
+        <h:dataTable id="detailsTable">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Driver" />
+                </f:facet>
+                <h:outputText value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.driver.firstName}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Bus" />
+                </f:facet>
+                <h:outputText value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.bus.brand}" />
+            </h:column>
+        </h:dataTable>
+        
     </body>
+    
 </html>

@@ -1,5 +1,7 @@
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import model.Reservation;
 
 /*
@@ -15,8 +17,10 @@ import model.Reservation;
 
 public class ReservationService {
     
+    private Reservation exampleReservation;
     private Reservation editReservation;
     private Reservation newReservation;
+    private List<Reservation> reservations;
     private List<Reservation> allReservations;
     
     private Service<Reservation> service;
@@ -24,9 +28,28 @@ public class ReservationService {
     
     public ReservationService(){    
         this.service = new Service();
+        
+        this.exampleReservation = new Reservation();
         this.editReservation = new Reservation();
         this.newReservation = new Reservation();
+        this.reservations = new ArrayList<>();
         this.allReservations = service.getAll("from Reservation");
+    }
+
+    public Reservation getExampleReservation() {
+        return exampleReservation;
+    }
+
+    public void setExampleReservation(Reservation exampleReservation) {
+        this.exampleReservation = exampleReservation;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public Reservation getEditReservation() {
@@ -74,8 +97,12 @@ public class ReservationService {
         this.newReservation = new Reservation();
     }
     
-    public List<Reservation> getByExample(Reservation example){
-        return service.getByExample(example);
+    public void setByExample(){
+        this.reservations = service.getByExample(this.exampleReservation);
+    }
+    
+    public List<Reservation> getNotApproved(){
+        return this.allReservations.stream().filter((r)->(!r.getApproved())).collect(Collectors.toList());
     }
     
 }

@@ -14,28 +14,33 @@ and open the template in the editor.
     </head>
     <body>
         <div>TODO write content</div>
-        <h:form id="reservationForm">
-            <h:dataTable id="reservationTable" value="#{UserController.reservationControlle.reservationService.reservations}" var="reservation">
+        
+        <h:form id="ticketForm">
+            <h:dataTable id="ticketTable" value="#{AdminController.ticketService.getNotApproved()}" var="ticket">
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Departure City" />
+                        <h:outputText value="Username"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.line.departureCity}"/>
+                    <h:outputText value="#{ticket.user.userName}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Departure Date And Time" />
+                        <h:outputText value="User category"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.line.departureDateAndTime}">
-                        <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                    </h:outputText>
+                    <h:outputText value="#{ticket.category}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Cancel" />
+                        <h:outputText value="Duration"/>
                     </f:facet>
-                    <h:commandButton value="Cancel" action="#{UserController.reservationControlle.cancel(reservation)}">
-                        <f:ajax render="reservationForm:reservationTable"/>
+                    <h:outputText value="#{ticket.duration}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Approve"/>
+                    </f:facet>
+                    <h:commandButton value="#{ticket.setApproved(true)}">
+                        <f:ajax render="ticketTable"/>
                     </h:commandButton>
                 </h:column>
             </h:dataTable>

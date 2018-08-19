@@ -23,6 +23,8 @@ public class AdminController {
     private CarrierService carrierService;
     private IntercityLineService intercityLineService;
     private TicketOfferService ticketOfferService;
+    private TicketService ticketService;
+    private ReservationService reservationService;
     
 
     public AdminController() {
@@ -35,6 +37,8 @@ public class AdminController {
         this.carrierService = new CarrierService();
         this.intercityLineService = new IntercityLineService();
         this.ticketOfferService = new TicketOfferService();
+        this.ticketService = new TicketService();
+        this.reservationService = new ReservationService();
     }
     
 
@@ -101,6 +105,21 @@ public class AdminController {
     public void setTicketOfferService(TicketOfferService ticketOfferService) {
         this.ticketOfferService = ticketOfferService;
     }
-    
+
+    public TicketService getTicketService() {
+        return ticketService;
+    }
+
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    public ReservationService getReservationService() {
+        return reservationService;
+    }
+
+    public void setReservationService(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
     
 }

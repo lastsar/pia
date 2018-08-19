@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import model.TicketOffer;
 
@@ -15,8 +16,10 @@ import model.TicketOffer;
 
 public class TicketOfferService {
     
+    private TicketOffer exampleTicketOffer;
     private TicketOffer editTicketOffer;
     private TicketOffer newTicketOffer;
+    private List<TicketOffer> ticketOffers;
     private List<TicketOffer> allTicketOffers;
     
     private Service<TicketOffer> service;
@@ -24,9 +27,29 @@ public class TicketOfferService {
     
     public TicketOfferService(){    
         this.service = new Service();
+        
+        this.exampleTicketOffer = new TicketOffer();
         this.editTicketOffer = new TicketOffer();
         this.newTicketOffer = new TicketOffer();
+        this.ticketOffers = new ArrayList<>();
         this.allTicketOffers = service.getAll("from TicketOffer");
+    }
+
+    public TicketOffer getExampleTicketOffer() {
+        return exampleTicketOffer;
+    }
+
+    public void setExampleTicketOffer(TicketOffer exampleTicketOffer) {
+        this.exampleTicketOffer = exampleTicketOffer;
+    }
+
+    
+    public List<TicketOffer> getTicketOffers() {
+        return ticketOffers;
+    }
+
+    public void setTicketOffers(List<TicketOffer> ticketOffers) {
+        this.ticketOffers = ticketOffers;
     }
 
     public TicketOffer getEditTicketOffer() {
@@ -74,7 +97,7 @@ public class TicketOfferService {
         this.newTicketOffer = new TicketOffer();
     }
     
-    public List<TicketOffer> getByExample(TicketOffer example){
-        return service.getByExample(example);
+    public void setByExample(){
+        this.ticketOffers = service.getByExample(this.exampleTicketOffer);
     }
 }

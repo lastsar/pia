@@ -18,8 +18,10 @@ import model.CityLine;
 
 public class CityService {
     
+    private City exampleCity;
     private City editCity;
     private City newCity;
+    private List<City> cities;
     private List<City> allCities;
     
     private Service<City> service;
@@ -29,9 +31,19 @@ public class CityService {
         
         this.service = new Service<>();
         
+        this.exampleCity = new City();
         this.editCity = new City();
         this.newCity = new City();
+        this.cities = new ArrayList<>();
         this.allCities = service.getAll("from City");
+    }
+
+    public City getExampleCity() {
+        return exampleCity;
+    }
+
+    public void setExampleCity(City exampleCity) {
+        this.exampleCity = exampleCity;
     }
 
     public City getEditCity() {
@@ -48,6 +60,14 @@ public class CityService {
 
     public void setNewCity(City newCity) {
         this.newCity = newCity;
+    }
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 
     public List<City> getAllCities() {
@@ -79,8 +99,8 @@ public class CityService {
         this.newCity = new City();
     }
     
-    public List<City> getByExample(City example){
-        return service.getByExample(example);
+    public void getByExample(){
+        this.cities = service.getByExample(this.exampleCity);
     }
     
 }

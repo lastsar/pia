@@ -17,8 +17,10 @@ import model.Driver;
 
 public class DriverService {
     
+    private Driver exampleDriver;
     private Driver editDriver;
     private Driver newDriver;
+    private List<Driver> drivers;
     private List<Driver> allDrivers;
     
     private Service<Driver> service;
@@ -28,9 +30,19 @@ public class DriverService {
         
         this.service = new Service<>();
         
+        this.exampleDriver = new Driver();
         this.editDriver = new Driver();
         this.newDriver = new Driver();
+        this.drivers = new ArrayList<>();
         this.allDrivers = service.getAll("from Driver");
+    }
+
+    public Driver getExampleDriver() {
+        return exampleDriver;
+    }
+
+    public void setExampleDriver(Driver exampleDriver) {
+        this.exampleDriver = exampleDriver;
     }
 
     public Driver getEditDriver() {
@@ -47,6 +59,14 @@ public class DriverService {
 
     public void setNewDriver(Driver newDriver) {
         this.newDriver = newDriver;
+    }
+
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
     }
 
     public List<Driver> getAllDrivers() {
@@ -78,8 +98,8 @@ public class DriverService {
         this.newDriver = new Driver();
     }
     
-    public List<Driver> getByExample(Driver example){
-        return service.getByExample(example);
+    public void setByExample(){
+        this.drivers = service.getByExample(this.exampleDriver);
     }
     
 }

@@ -1,16 +1,9 @@
 
-import java.util.ArrayList;
 import java.util.List;
 import model.RegisteredUser;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.City;
-import model.CityLine;
-import model.IntercityLine;
-import model.Reservation;
-import model.Ticket;
-import model.TicketOffer;
-import org.hibernate.criterion.Example;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,120 +20,28 @@ import org.hibernate.criterion.Example;
 public class UserController {
     
     private RegisteredUser user;
-    
-    private City city;
-    private List<City> cities;
-    private List<CityLine> cityLines;
-    private List<IntercityLine> intercityLines;
-    private List<Ticket> tickets;
-    private List<TicketOffer> ticketOffers;
-    private List<Reservation> reservations;
-    
-    private CityService cityService;
-    private CityLineService cityLineService;
-    private IntercityLineService intercityLineService;
-    private TicketService ticketService;
-    private TicketOfferService ticketOfferService;
-    private ReservationService reservationService;
     private RegisteredUserService registeredUserService;
+    private CityService cityService;
     
+    private UserCityLineController cityLineController;
+    private UserIntercityLineController intercityLineController;
+    private UserTicketController ticketController;
+    private UserReservationController reservationControlle;
     
     
     public UserController(){
-        
         this.cityService = new CityService();
-        this.cityLineService = new CityLineService();
-        this.intercityLineService = new IntercityLineService();
-        this.ticketService = new TicketService();
-        this.ticketOfferService = new TicketOfferService();
-        this.reservationService = new ReservationService();
-        
         this.registeredUserService = new RegisteredUserService();
-        
-        this.city = new City();
-        this.cities = this.cityService.getAllCities();
-        this.cityLines = new ArrayList<>();
-        this.intercityLines = new ArrayList<>();
-        this.tickets = new ArrayList<>();
-        this.ticketOffers = new ArrayList<>();
-        this.reservations = new ArrayList<>();
-        
         this.user = new RegisteredUser();
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public List<TicketOffer> getTicketOffers() {
-        return ticketOffers;
-    }
-
-    public void setTicketOffers(List<TicketOffer> ticketOffers) {
-        this.ticketOffers = ticketOffers;
-    }
-
-
-    
-    
-
-    public List<CityLine> getCityLines() {
-        return cityLines;
-    }
-
-    public void setCityLines(List<CityLine> cityLines) {
-        this.cityLines = cityLines;
-    }
-
-    public List<IntercityLine> getIntercityLines() {
-        return intercityLines;
-    }
-
-    public void setIntercityLines(List<IntercityLine> intercityLines) {
-        this.intercityLines = intercityLines;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-
-    public RegisteredUser getUser() {
-        return user;
-    }
-
-    public void setUser(RegisteredUser user) {
-        this.user = user;
     }
     
     public String login(){
         RegisteredUser exampleUser = new RegisteredUser();
         exampleUser.setUserName(this.user.getUserName());
         exampleUser.setPassword(this.user.getPassword());
-        List<RegisteredUser> users = this.registeredUserService.getByExample(exampleUser);
+        registeredUserService.setExampleRegisteredUser(exampleUser);
+        this.registeredUserService.setByExample();
+        List<RegisteredUser> users = this.registeredUserService.getRegisteredUsers();
         if(users.isEmpty()){
             this.user = new RegisteredUser();
             return "Login";
@@ -156,12 +57,15 @@ public class UserController {
         
         RegisteredUser exampleUser = new RegisteredUser();
         exampleUser.setUserName(this.user.getUserName());
-        List<RegisteredUser> users = this.registeredUserService.getByExample(exampleUser);
+        this.registeredUserService.setExampleRegisteredUser(exampleUser);
+        this.registeredUserService.setByExample();
+        List<RegisteredUser> users = this.registeredUserService.getRegisteredUsers();
         if(!users.isEmpty()){
             return "Registration";
         }
         registeredUserService.setNewRegisteredUser(this.user);
         registeredUserService.save();
+        //test to see if user id is same as saved objects id, if not you should retreive object from data base
         return "RegisteredUser";
     }
     
@@ -171,37 +75,119 @@ public class UserController {
     }
     
     public String searchCityLines(City city){
-        this.city = city;
-        CityLine exampleCityLine = new CityLine();
-        exampleCityLine.setCity(this.city);
-        this.cityLines = this.cityLineService.getByExample(exampleCityLine);
+        this.cityLineController = new UserCityLineController(this.user, city);
+        
         return "UserCityLines";
     }
     
     public String searchIntercityLines(){
-        this.intercityLines = this.intercityLineService.getAllIntercityLines();
+        this.intercityLineController = new UserIntercityLineController(this.user);
+        
         return "IntercityLines";
     }
     
     public String buyTicket(){
         
-        Ticket exampleTicket = new Ticket();
-        exampleTicket.setUser(this.user);
-        this.tickets = this.ticketService.getByExample(exampleTicket);
+        this.ticketController = new UserTicketController(this.user);
         
-        String category = this.user.getCategory();
-        TicketOffer exampleTicketOffer = new TicketOffer();
-        exampleTicketOffer.setStatus(category);
-        this.ticketOffers = this.ticketOfferService.getByExample(exampleTicketOffer);
         
         return "UserTickets";
         
     }
     
     public String showReservations(){
-        Reservation exampleReservation = new Reservation();
-        exampleReservation.setUser(this.user);
-        this.reservations = this.reservationService.getByExample(exampleReservation);
+        this.reservationControlle = new UserReservationController(this.user);
         return "UserReservations";
     }
+
+    public UserTicketController getTicketController() {
+        return ticketController;
+    }
+
+    public void setTicketController(UserTicketController ticketController) {
+        this.ticketController = ticketController;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public RegisteredUser getUser() {
+        return user;
+    }
+
+    public void setUser(RegisteredUser user) {
+        this.user = user;
+    }
+
+    public CityService getCityService() {
+        return cityService;
+    }
+
+    public void setCityService(CityService cityService) {
+        this.cityService = cityService;
+    }
+    
+    public RegisteredUserService getRegisteredUserService() {
+        return registeredUserService;
+    }
+
+    public void setRegisteredUserService(RegisteredUserService registeredUserService) {
+        this.registeredUserService = registeredUserService;
+    }
+
+    public UserCityLineController getCityLineController() {
+        return cityLineController;
+    }
+
+    public void setCityLineController(UserCityLineController cityLineController) {
+        this.cityLineController = cityLineController;
+    }
+
+    public UserIntercityLineController getIntercityLineController() {
+        return intercityLineController;
+    }
+
+    public void setIntercityLineController(UserIntercityLineController intercityLineController) {
+        this.intercityLineController = intercityLineController;
+    }
+
+    public UserReservationController getReservationControlle() {
+        return reservationControlle;
+    }
+
+    public void setReservationControlle(UserReservationController reservationControlle) {
+        this.reservationControlle = reservationControlle;
+    }
+    
+    
 }

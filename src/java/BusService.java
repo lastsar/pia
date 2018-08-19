@@ -17,8 +17,10 @@ import model.Bus;
 
 public class BusService {
     
+    private Bus exampleBus;
     private Bus editBus;
     private Bus newBus;
+    private List<Bus> busses;
     private List<Bus> allBusses;
     
     private Service<Bus> service;
@@ -28,9 +30,19 @@ public class BusService {
         
         this.service = new Service<>();
         
+        this.exampleBus = new Bus();
         this.editBus = new Bus();
         this.newBus = new Bus();
+        this.busses = new ArrayList();
         this.allBusses = service.getAll("from Bus");
+    }
+
+    public Bus getExampleBus() {
+        return exampleBus;
+    }
+
+    public void setExampleBus(Bus exampleBus) {
+        this.exampleBus = exampleBus;
     }
 
     public Bus getEditBus() {
@@ -47,6 +59,14 @@ public class BusService {
 
     public void setNewBus(Bus newBus) {
         this.newBus = newBus;
+    }
+
+    public List<Bus> getBusses() {
+        return busses;
+    }
+
+    public void setBusses(List<Bus> busses) {
+        this.busses = busses;
     }
 
     public List<Bus> getAllBusses() {
@@ -78,8 +98,8 @@ public class BusService {
         this.newBus = new Bus();
     }
     
-    public List<Bus> getByExample(Bus exampleBus){
-        return service.getByExample(exampleBus);
+    public void setByExample(){
+        this.busses = service.getByExample(this.exampleBus);
     }
     
 }

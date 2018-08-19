@@ -16,7 +16,7 @@ and open the template in the editor.
         <div>Welcome</div>
         <h:form>
             <h:outputLabel value="Cities">
-                <ui:repeat value="#{UserController.cities}" var="city">
+                <ui:repeat value="#{UserController.cityService.allCities}" var="city">
                     #{city.name}<h:commandButton value="Choose" action="#{UserController.searchCityLines(city)}" />
                 </ui:repeat>
             </h:outputLabel><br/>

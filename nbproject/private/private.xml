@@ -10,21 +10,28 @@
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/City.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminIntercityLines.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Bus.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/UserReservationController.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminDrivers.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Ticket.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Reservation.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminStations.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/UserTicketController.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/Registration.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/IntercityLineService.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/UserTickets.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminReservations.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/FilterCityLine.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminTickets.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/UserCityLines.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/SessionFactory.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/CityLine.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/TicketService.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/UserCityLineController.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/WEB-INF/beans.xml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/CityLineService.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminWelcome.xhtml</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/UserIntercityLineController.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/AdminTicketOffers.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Address.java</file>
@@ -33,6 +40,7 @@
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/UserIntercityLines.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/DriverService.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/RegisteredUserService.java</file>
+            <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/FilterIntercityLine.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/web/Guest.xhtml</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/ReservationService.java</file>
             <file>file:/C:/Users/Lazar/Documents/NetBeansProjects/project/src/java/model/Carrier.java</file>

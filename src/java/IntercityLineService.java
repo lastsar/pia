@@ -1,7 +1,10 @@
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
+import model.CityLine;
 import model.IntercityLine;
 
 /*
@@ -17,20 +20,54 @@ import model.IntercityLine;
 
 public class IntercityLineService {
     
+    
+    private FilterIntercityLine filter;
+    
+    private IntercityLine exampleIntercityLine;
     private IntercityLine editIntercityLine;
     private IntercityLine newIntercityLine;
+    private List<IntercityLine> intercityLines;
     private List<IntercityLine> allIntercityLines;
     
     private Service<IntercityLine> service;
     
     
     public IntercityLineService(){
+        this.filter = new FilterIntercityLine();
+        
         
         this.service = new Service<>();
         
+        this.exampleIntercityLine = new IntercityLine();
         this.editIntercityLine = new IntercityLine();
         this.newIntercityLine = new IntercityLine();
+        this.intercityLines = new ArrayList<>();
         this.allIntercityLines = service.getAll("from IntercityLine");
+    }
+
+    public FilterIntercityLine getFilter() {
+        return filter;
+    }
+
+    public void setFilter(FilterIntercityLine filter) {
+        this.filter = filter;
+    }
+
+
+    public IntercityLine getExampleIntercityLine() {
+        return exampleIntercityLine;
+    }
+
+    public void setExampleIntercityLine(IntercityLine exampleIntercityLine) {
+        this.exampleIntercityLine = exampleIntercityLine;
+    }
+
+    public List<IntercityLine> getIntercityLines() {
+        return intercityLines;
+    }
+
+    public void setIntercityLines(List<IntercityLine> intercityLines) {
+        this.intercityLines = intercityLines;
     }
 
     public IntercityLine getEditIntercityLine() {
@@ -78,8 +115,40 @@ public class IntercityLineService {
         this.newIntercityLine = new IntercityLine();
     }
     
-    public List<IntercityLine> getByExample(IntercityLine example){
-        return service.getByExample(example);
+    public void setByExample(){
+        this.intercityLines = service.getByExample(this.exampleIntercityLine);
+    }
+    
+    
+    public void filterIntercityLines(){
+                
+        this.intercityLines = this.intercityLines.stream().filter((line) -> {
+            String carrierName = line.getCarrier().getName();
+            String departureCity = line.getDepartureCity().getName();
+            List<String> intercityNames = line.getInterCities().stream().map((city)->(city.getName())).collect(Collectors.toList());
+            String arrivalCityName = line.getArrivalCity().getName();
+            Date deartureDateAndTime = line.getDepartureDateAndTime();
+            Date arrivalDateAndTime = line.getArrivalDateAndTime();
+            
+            String fCarrierName = this.filter.getCarrierName();
+            String fDepartureCityName = this.filter.getDepartureCityName();
+            String fIntercityName = this.filter.getIntercityName();
+            String fArrivalCityName = this.filter.getArrivalCityName();
+            Date fDepartureDateAndTime = this.filter.getDepartureDateAndTime();
+            Date fArrivalDateAndTime = this.filter.getArrivalDateAndTime();
+            
+            
+            
+            
+            return      (fCarrierName==null || fCarrierName.equals(carrierName))
+                    &&  (fDepartureCityName==null || fDepartureCityName.equals(departureCity))
+                    &&  (fIntercityName==null || intercityNames.contains(fIntercityName))
+                    &&  (fArrivalCityName==null || fArrivalCityName.equals(arrivalCityName))
+                    &&  (fDepartureDateAndTime==null || fDepartureDateAndTime.equals(deartureDateAndTime))
+                    &&  (fArrivalDateAndTime==null || fArrivalDateAndTime.equals(arrivalDateAndTime));
+
+        }).collect(Collectors.toList());
+        
     }
     
 }

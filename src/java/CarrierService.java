@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
 import model.Carrier;
 
 /*
@@ -17,8 +16,10 @@ import model.Carrier;
 
 public class CarrierService {
     
+    private Carrier exampleCarrier;
     private Carrier editCarrier;
     private Carrier newCarrier;
+    private List<Carrier> carriers;
     private List<Carrier> allCarriers;
     
     private Service<Carrier> service;
@@ -28,9 +29,19 @@ public class CarrierService {
         
         this.service = new Service<>();
         
+        this.exampleCarrier = new Carrier();
         this.editCarrier = new Carrier();
         this.newCarrier = new Carrier();
+        this.carriers = new ArrayList<>();
         this.allCarriers = service.getAll("from Carrier");
+    }
+
+    public Carrier getExampleCarrier() {
+        return exampleCarrier;
+    }
+
+    public void setExampleCarrier(Carrier exampleCarrier) {
+        this.exampleCarrier = exampleCarrier;
     }
 
     public Carrier getEditCarrier() {
@@ -47,6 +58,14 @@ public class CarrierService {
 
     public void setNewCarrier(Carrier newCarrier) {
         this.newCarrier = newCarrier;
+    }
+
+    public List<Carrier> getCarriers() {
+        return carriers;
+    }
+
+    public void setCarriers(List<Carrier> carriers) {
+        this.carriers = carriers;
     }
 
     public List<Carrier> getAllCarriers() {
@@ -78,8 +97,8 @@ public class CarrierService {
         this.newCarrier = new Carrier();
     }
     
-    public List<Carrier> getByExample(Carrier exampleCarrier){
-        return service.getByExample(exampleCarrier);
+    public void setByExample(){
+        this.carriers = service.getByExample(this.exampleCarrier);
     }
     
 }
