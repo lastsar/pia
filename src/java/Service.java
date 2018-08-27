@@ -63,7 +63,7 @@ public class Service<T> {
         Example example = Example.create(entity);
         Criteria criteria = session.createCriteria(entity.getClass()).add(example);
         List<T> entities = (List<T>) criteria.list();
-        session.close();
+        session.close(); 
         
         return entities;
     }

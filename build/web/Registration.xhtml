@@ -7,44 +7,51 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <title>Registration</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <div>Registration</div>
         
+        <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+        
         <h:form id="registrationForm">
-            <h:outputText value="First Name"/>
-            <h:inputText value="#{UserController.user.firstName}" />
-            <h:outputText value="Last Name"/>
-            <h:inputText value="#{UserController.user.lastName}" />
-            <h:outputText value="Username"/>
-            <h:inputText value="#{UserController.user.userName}" />
-            <h:outputText value="Password"/>
-            <h:inputText value="#{UserController.user.password}" />
-            <h:outputText value="Confirm Passsword"/>
-            <h:inputText value="#{UserController.user.password}" />
-            <h:outputText value="Municipality"/>
-            <h:inputText value="#{UserController.user.address.municipality}" />
-            <h:outputText value="City"/>
-            <h:inputText value="#{UserController.user.address.city}" />
-            <h:outputText value="Street"/>
-            <h:inputText value="#{UserController.user.address.street}" />
-            <h:outputText value="Date Of Birdth"/>
-            <h:inputText value="#{UserController.user.dateOfBirdth}" >
-                <f:convertDateTime pattern = "dd-mm-yyyy" />
-            </h:inputText>
-            <h:outputText value="Phone Number"/>
-            <h:inputText value="#{UserController.user.phoneNumber}" />
-            <h:outputText value="Category"/>
-            <h:inputText value="#{UserController.user.category}" />
-            <h:outputText value="Email"/>
-            <h:inputText value="#{UserController.user.email}" />
-             
-            
-            <h:commandButton value="Register" action="#{UserController.register()}"/>
+            <p:panelGrid columns="2">
+                <p:outputLabel for="firstName" value="First Name:"/>
+                <p:inputText id="firstName" value="#{UserController.user.firstName}" label="First Name" required="true"/>
+                <p:outputLabel for="lastName" value="Last Name:"/>
+                <p:inputText id="lastName" value="#{UserController.user.lastName}" label="Last Name" required="true" />
+                <p:outputLabel for="username" value="Username:"/>
+                <p:inputText id="username" value="#{UserController.user.userName}" label="Username" required="true"/>
+                <p:outputLabel for="pwd1" value="Password:" />
+                <p:password id="pwd1" value="#{UserController.user.password}" match="pwd2" label="Password" required="true" />
+                <p:outputLabel for="pwd2" value="Confirm Password:" />
+                <p:password id="pwd2" value="#{UserController.user.password}" label="Confirm Password" required="true" >
+                    <f:validateRegex pattern="(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?])[A-Za-z\d$@$!%*?]{6,12}" />
+                </p:password>   
+                <p:outputLabel for="city" value="City:"/>
+                <p:selectOneMenu value="#{UserController.cityService.allCities}" var="city">
+                    <f:selectItem itemLabel="#{city.name}" itemValue="#{UserController.user.setCity(city)}">
+                </p:selectOneMenu>
+                <p:outputLabel for="street" value="Street:"/>
+                <p:inputText id="street" value="#{UserController.user.street}" label="Street" required="true" />
+                <p:outputLabel for="dateOfBirdth" value="Date Of Birdth:"/>
+                <p:calendar id="dateOfBirdth" value="#{UserController.user.dateOfBirdth}" label="Date Of Birdth" required="true" />
+                <p:outputLabel for="phoneNumber" value="Phone Number:"/>
+                <p:inputText id="phoneNumber" value="#{UserController.user.phoneNumber}" label="Phone Number" required="true"/>
+                <p:outputLabel for="category" value="Category:"/>
+                <p:inputText id="category" value="#{UserController.user.category}" label="Category" required="true" />
+                <p:outputLabel for="email" value="Email:"/>
+                <p:inputText id="email" value="#{UserController.user.email}" label="Email" required="true" >
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                </p:inputText>
+
+
+                <p:commandButton id="registerButton" value="Register" ajax="false" action="#{UserController.register()}"/>
+            </p:panelGrid>
         </h:form>
-    </body>
+    </h:body>
 </html>

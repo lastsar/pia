@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,103 +16,81 @@ and open the template in the editor.
     
     <h:body>
 
-    <h:form id="carrierForm">
-        <h:dataTable id="carrierTable" value="#{AdminController.carrierService.allCarriers}" var="carrier">
-            <h:column>
+    <h:form>
+        <p:dataTable value="#{AdminController.carrierService.allCarriers}" var="carrier" styleClass="dataTable">
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Name"/>
+                    <p:outputLabel value="Name"/>
                 </f:facet>
-                <h:inputText value="#{carrier.name}" rendered="#{carrier.editable}" />
-                <h:outputText value="#{carrier.name}" rendered="#{not carrier.editable}" />
-            </h:column>
-            <h:column>
+                <p:inputText value="#{carrier.name}" rendered="#{carrier.editable}" />
+                <p:outputLabel value="#{carrier.name}" rendered="#{not carrier.editable}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Phone"/>
+                    <p:outputLabel value="Phone"/>
                 </f:facet>
-                <h:inputText value="#{carrier.phone}" rendered="#{carrier.editable}" />
-                <h:outputText value="#{carrier.phone}" rendered="#{not carrier.editable}" />
-            </h:column>
-            <h:column>
+                <p:inputText value="#{carrier.phone}" rendered="#{carrier.editable}" />
+                <p:outputLabel value="#{carrier.phone}" rendered="#{not carrier.editable}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Municipality"/>
+                    <p:outputLabel value="City"/>
                 </f:facet>
-                <h:inputText value="#{carrier.address.municipality}" rendered="#{carrier.editable}" />
-                <h:outputText value="#{carrier.address.municipality}" rendered="#{not carrier.editable}" />
-            </h:column>
-            <h:column>
+                <p:commandButton value="Add" action="AdminCities" rendered="#{carrier.editable}" />
+                <p:outputLabel value="#{carrier.city.name}" rendered="#{not carrier.editable}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="City"/>
+                    <p:outputLabel value="Street"/>
                 </f:facet>
-                <h:inputText value="#{carrier.address.city}" rendered="#{carrier.editable}" />
-                <h:outputText value="#{carrier.address.city}" rendered="#{not carrier.editable}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Street"/>
-                </f:facet>
-                <h:inputText value="#{carrier.address.street}" rendered="#{carrier.editable}" />
-                <h:outputText value="#{carrier.address.street}" rendered="#{not carrier.editable}" />
-            </h:column>
-            <h:column>
-                <h:commandLink value="Edit" action="#{AdminController.carrierService.edit(carrier)}" rendered="#{not carrier.editable}" >
-                    <f:ajax render="carrierForm:carrierTable" />
-                </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.carrierService.update()}" rendered="#{carrier.editable}" >
-                    <f:ajax execute="@form" render="carrierForm:carrierTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminController.carrierService.delete(carrier)}"
-                               onclick="return confirm('Are you sure?')">
-                    <f:ajax render="carrierForm:carrierTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink value="EDIT Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setCarrier(carrier)}" >
-                    <f:ajax render="carrierForm:carrierTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink value="NEW Add to Intercity Line" action="#{AdminController.intercityLineService.newIntercityLine.setCarrier(carrier)}" >
-                    <f:ajax render="carrierForm:carrierTable" />
-                </h:commandLink>
-            </h:column>
-        </h:dataTable>
+                <p:inputText value="#{carrier.street}" rendered="#{carrier.editable}" />
+                <p:outputLabel value="#{carrier.street}" rendered="#{not carrier.editable}" />
+            </p:column>
+            <p:column>
+                <p:commandButton value="Edit" action="#{AdminController.carrierService.edit(carrier)}" rendered="#{not carrier.editable}" update="@(.dataTable)"/>
+                <p:commandButton value="Update" action="#{AdminController.carrierService.update()}" rendered="#{carrier.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton id="Delete" value="delete" action="#{AdminController.carrierService.delete(carrier)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)" />
+            </p:column>
+            <p:column>
+                <p:commandButton value="EDIT Add to Intercity Line" action="#{AdminController.intercityLineService.editIntercityLine.setCarrier(carrier)}" rendered="#{not carrier.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="NEW Add to Intercity Line" action="#{AdminController.intercityLineService.newIntercityLine.setCarrier(carrier)}" rendered="#{not carrier.editable}" update="@(.dataTable)"/>
+            </p:column>
+        </p:dataTable>
 
         <h2>Add carrier to table</h2>
-        <h:outputLabel value="Name">
-            <h:inputText value="#{AdminController.carrierService.newCarrier.name}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Phone">
-            <h:inputText value="#{AdminController.carrierService.newCarrier.phone}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Municipality">
-            <h:inputText value="#{AdminController.carrierService.newCarrier.address.municipality}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="City">
-            <h:inputText value="#{AdminController.carrierService.newCarrier.address.city}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Street">
-            <h:inputText value="#{AdminController.carrierService.newCarrier.address.street}" />
-        </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminController.carrierService.save()}">
-            <f:ajax execute="carrierForm" render="carrierForm:carrierTable" />
-        </h:commandButton>
+        <p:panelGrid columns="2">
+            <p:outputLabel value="Name"/>
+            <p:inputText value="#{AdminController.carrierService.newCarrier.name}" />
+            <p:outputLabel value="Phone"/>
+            <p:inputText value="#{AdminController.carrierService.newCarrier.phone}" />
+            <p:outputLabel value="City"/>
+            <p:commandButton value="Add" action="AdminCities">
+                <p:outputLabel value="#{AdminController.carrierService.newCarrier.city.name}"/>
+            </p:commandButton>
+            <p:outputLabel value="Street"/>
+            <p:inputText value="#{AdminController.carrierService.newCarrier.street}" />
+            <p:commandButton value="Save" action="#{AdminController.carrierService.save()}" update="@(.dataTable)"/>
+        </p:panelGrid>    
+    </h:form>
 
-        </h:form>
-        
-        
-        
-        
-        <h:form>
-            <h:commandButton value="Cities" action="AdminCities"/>
-            <h:commandButton value="Stations" action="AdminStations"/>
-            <h:commandButton value="Drivers" action="AdminDrivers"/>
-            <h:commandButton value="CityLines" action="AdminCityLines"/>
-            <h:commandButton value="Busses" action="AdminBusses"/>
-            <h:commandButton value="Carriers" action="AdminCarriers"/>
-            <h:commandButton value="IntercityLines" action="AdminIntercityLines"/>
-            <h:commandButton value="TicketOffers" action="AdminTicketOffers"/>
-        </h:form>
+
+
+
+    <h:form>
+        <p:panelGrid columns="1" style="float:right">
+            <p:commandButton value="Cities" action="AdminCities"/>
+            <p:commandButton value="Stations" action="AdminStations"/>
+            <p:commandButton value="Drivers" action="AdminDrivers"/>
+            <p:commandButton value="CityLines" action="AdminCityLines"/>
+            <p:commandButton value="Busses" action="AdminBusses"/>
+            <p:commandButton value="Carriers" action="AdminCarriers"/>
+            <p:commandButton value="IntercityLines" action="AdminIntercityLines"/>
+            <p:commandButton value="TicketOffers" action="AdminTicketOffers"/>
+        </p:panelGrid>
+    </h:form>
     </h:body>
 </html>

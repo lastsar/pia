@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,20 +23,15 @@ public class Carrier implements Serializable {
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
-    @Embedded
-    private Address address;
+    @ManyToOne
+    private City city;
+    private String street;
     private String phone;
     private transient Boolean editable;
 
     public Carrier() {
-        this.address = new Address();
+        this.city = new City();
         this.editable = false;
-    }
-
-    public Carrier(String name, Address address, String phone) {
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
     }
 
     public String getName() {
@@ -46,12 +42,20 @@ public class Carrier implements Serializable {
         this.name = name;
     }
 
-    public Address getAddress() {
-        return address;
+    public City getCity() {
+        return city;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getPhone() {

@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,84 +16,78 @@ and open the template in the editor.
     
     <h:body>
 
-    <h:form id="stationForm">
-        <h:dataTable id="stationTable" value="#{AdminController.stationService.allStations}" var="station">
-            <h:column>
+    <h:form>
+        <p:dataTable value="#{AdminController.stationService.allStations}" var="station" styleClass="dataTable">
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Name"/>
+                    <p:outputLabel value="Name"/>
                 </f:facet>
-                <h:inputText value="#{station.name}" rendered="#{station.editable}" />
-                <h:outputText value="#{station.name}" rendered="#{not station.editable}" />
-            </h:column>
-            <h:column>
+                <p:inputText value="#{station.name}" rendered="#{station.editable}" />
+                <p:outputLabel value="#{station.name}" rendered="#{not station.editable}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="City"/>
+                    <p:outputLabel value="City"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminCities" rendered="#{station.editable}" />
-                <h:outputText value="#{station.city.name}" rendered="#{not station.editable}" />
-            </h:column>
-            <h:column>
-                <h:commandLink value="Edit" action="#{AdminController.stationService.edit(station)}" rendered="#{not station.editable}" >
-                    <f:ajax render="stationForm:stationTable" />
-                </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.stationService.update()}" rendered="#{station.editable}" >
-                    <f:ajax execute="@form" render="stationForm:stationTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminController.stationService.delete(station)}"
-                               onclick="return confirm('Are you sure?')">
-                    <f:ajax render="stationForm:stationTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink value="EDIT Add Departure Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}"/>
-            </h:column>
-            <h:column>
-                <h:commandLink value="EDIT Add Inter Station" action="#{AdminController.cityLineService.editCityLine.interStations.add(station)}"/>
-            </h:column>
-            <h:column>
-                <h:commandLink value="EDIT Add Arrival Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}"/>
-            </h:column>
-            <h:column>
-                <h:commandLink value="NEW Add Departure Station" action="#{AdminController.cityLineService.newCityLine.setDepartureStation(station)}"/>
-            </h:column>
-            <h:column>
-                <h:commandLink value="NEW Add Inter Station" action="#{AdminController.cityLineService.newCityLine.interStations.add(station)}"/>
-            </h:column>
-            <h:column>
-                <h:commandLink value="NEW Add Arrival Station" action="#{AdminController.cityLineService.newCityLine.setArrivalStation(station)}"/>
-            </h:column>
-        </h:dataTable>
+                <p:commandButton value="Add" action="AdminCities" rendered="#{station.editable}" />
+                <p:outputLabel value="#{station.city.name}" rendered="#{not station.editable}" />
+            </p:column>
+            <p:column>
+                <p:commandButton value="Edit" action="#{AdminController.stationService.edit(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
+                <p:commandButton value="Update" action="#{AdminController.stationService.update()}" rendered="#{station.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton id="Delete" value="delete" action="#{AdminController.stationService.delete(station)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="EDIT Add Departure Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="EDIT Add Inter Station" action="#{AdminController.cityLineService.editCityLine.interStations.add(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="EDIT Add Arrival Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="NEW Add Departure Station" action="#{AdminController.cityLineService.newCityLine.setDepartureStation(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="NEW Add Inter Station" action="#{AdminController.cityLineService.newCityLine.interStations.add(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
+            </p:column>
+            <p:column>
+                <p:commandButton value="NEW Add Arrival Station" action="#{AdminController.cityLineService.newCityLine.setArrivalStation(station)}"/>
+            </p:column>
+        </p:dataTable>
 
         <h2>Add station to table</h2>
-        <h:outputLabel value="Name">
-            <h:inputText value="#{AdminController.stationService.newStation.name}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="City">
-            <h:commandButton value="Set" action="AdminCities"/>
-            <h:outputText value="#{AdminController.stationService.newStation.city.name}" />
-        </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminController.stationService.save}">
-            <f:ajax execute="stationForm" render="stationForm:stationTable" />
-        </h:commandButton>
+        <p:panelGrid columns="2">
+            <p:outputLabel value="Name"/>
+            <p:inputText value="#{AdminController.stationService.newStation.name}" />
+            <p:outputLabel value="City"/>
+            <p:outputLabel value="#{AdminController.stationService.newStation.city.name}">
+                <p:commandButton value="Add" action="AdminCities"/>
+            </p:outputLabel>
+            <p:commandButton value="Save" action="#{AdminController.stationService.save}" update="@(.dataTable)"/>
+        </p:panelGrid>
 
-        </h:form>
-        
-        
-        
-        
-        
-        
-        <h:form>
-            <h:commandButton value="Cities" action="AdminCities"/>
-            <h:commandButton value="Stations" action="AdminStations"/>
-            <h:commandButton value="Drivers" action="AdminDrivers"/>
-            <h:commandButton value="CityLines" action="AdminCityLines"/>
-            <h:commandButton value="Busses" action="AdminBusses"/>
-            <h:commandButton value="Carriers" action="AdminCarriers"/>
-            <h:commandButton value="IntercityLines" action="AdminIntercityLines"/>
-            <h:commandButton value="TicketOffers" action="AdminTicketOffers"/>
-        </h:form>
+    </h:form>
+
+
+
+
+
+
+    <h:form>
+        <p:panelGrid columns="1" style="float:right">
+            <p:commandButton value="Cities" action="AdminCities"/>
+            <p:commandButton value="Stations" action="AdminStations"/>
+            <p:commandButton value="Drivers" action="AdminDrivers"/>
+            <p:commandButton value="CityLines" action="AdminCityLines"/>
+            <p:commandButton value="Busses" action="AdminBusses"/>
+            <p:commandButton value="Carriers" action="AdminCarriers"/>
+            <p:commandButton value="IntercityLines" action="AdminIntercityLines"/>
+            <p:commandButton value="TicketOffers" action="AdminTicketOffers"/>
+        </p:panelGrid>
+    </h:form>
     </h:body>
 </html>

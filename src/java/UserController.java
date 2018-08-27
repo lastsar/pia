@@ -65,7 +65,7 @@ public class UserController {
         }
         registeredUserService.setNewRegisteredUser(this.user);
         registeredUserService.save();
-        //test to see if user id is same as saved objects id, if not you should retreive object from data base
+        
         return "RegisteredUser";
     }
     

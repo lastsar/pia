@@ -58,7 +58,11 @@ Contributor(s):
     <mapping class="model.Carrier"/>
     <mapping class="model.IntercityLine"/>
     <mapping class="model.CityLine"/>
+    <mapping class="model.Ticket"/>
     <mapping class="model.TicketOffer"/>
+    <mapping class="model.RegisteredUser"/>
+    <mapping class="model.Reservation"/>
+
     
     
   </session-factory>

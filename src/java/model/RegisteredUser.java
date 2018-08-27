@@ -9,13 +9,11 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.xml.bind.DatatypeConverter;
 
@@ -33,8 +31,9 @@ public class RegisteredUser implements Serializable {
     private String lastName;
     private String userName;
     private String password;
-    @Embedded
-    private Address address;
+    @ManyToOne
+    private City city;
+    private String street;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirdth;
     private String phoneNumber;
@@ -46,7 +45,7 @@ public class RegisteredUser implements Serializable {
     
 
     public RegisteredUser() {
-        this.address = new Address();
+        this.city = new City();
         this.status = false;
     }
 
@@ -98,14 +97,22 @@ public class RegisteredUser implements Serializable {
         }
     }
 
-    public Address getAddress() {
-        return address;
+    public City getCity() {
+        return city;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setCity(City city) {
+        this.city = city;
     }
 
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+    
     public Date getDateOfBirdth() {
         return dateOfBirdth;
     }
