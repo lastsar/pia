@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Cities</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     
@@ -32,42 +32,6 @@ and open the template in the editor.
             <p:column>
                 <p:commandButton value="Delete" action="#{AdminController.cityService.delete(city)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
             </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add to Station" action="#{AdminController.stationService.editStation.setCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add to Station" action="#{AdminController.stationService.newStation.setCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add To Carrier" action="#{AdminController.carrierService.editCarrier.setCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add To Carrier" action="#{AdminController.carrierService.newCarrier.setCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add To City Line" action="#{AdminController.cityLineService.editCityLine.setCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add To City Line" action="#{AdminController.cityLineService.newCityLine.setCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Departure City" action="#{AdminController.intercityLineService.editIntercityLine.setDepartureCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Inter City" action="#{AdminController.intercityLineService.editIntercityLine.interCities.add(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Arrival City" action="#{AdminController.intercityLineService.editIntercityLine.setArrivalCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Departure City" action="#{AdminController.intercityLineService.newIntercityLine.setDepartureCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Inter City" action="#{AdminController.intercityLineService.newIntercityLine.interCities.add(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Arrival City" action="#{AdminController.intercityLineService.newIntercityLine.setArrivalCity(city)}" rendered="#{not city.editable}" update="@(.dataTable)" />
-            </p:column>
         </p:dataTable>
 
         <h2>Add city to table</h2>
@@ -79,6 +43,10 @@ and open the template in the editor.
             </p:panelGrid>
 
     </h:form>
+        
+        
+        
+        
         
         
     <h:form>

@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import model.RegisteredUser;
 import model.Reservation;
 
 /*
@@ -22,6 +23,7 @@ public class ReservationService {
     private Reservation newReservation;
     private List<Reservation> reservations;
     private List<Reservation> allReservations;
+    private List<Reservation> notApproved;
     
     private Service<Reservation> service;
     
@@ -34,6 +36,7 @@ public class ReservationService {
         this.newReservation = new Reservation();
         this.reservations = new ArrayList<>();
         this.allReservations = service.getAll("from Reservation");
+        this.loadNotApproved();
     }
 
     public Reservation getExampleReservation() {
@@ -101,8 +104,38 @@ public class ReservationService {
         this.reservations = service.getByExample(this.exampleReservation);
     }
     
-    public List<Reservation> getNotApproved(){
-        return this.allReservations.stream().filter((r)->(!r.getApproved())).collect(Collectors.toList());
+    public final void loadNotApproved(){
+        notApproved = new ArrayList<>();
+        for(Reservation reservation: allReservations){
+            if(!reservation.getApproved()){
+                notApproved.add(reservation);
+            }
+        }
+    }
+
+    public List<Reservation> getNotApproved() {
+        loadNotApproved();
+        return notApproved;
+    }
+
+    public void setNotApproved(List<Reservation> notApproved) {
+        this.notApproved = notApproved;
+    }
+    
+    
+    public void getByUser(RegisteredUser user){
+        reservations = new ArrayList<>();
+        for(Reservation reservation:allReservations){
+            if(reservation.getUser().getUserName().equals(user.getUserName())){
+                reservations.add(reservation);
+            }
+        }
+    }
+    
+    public void approveAndUpdate(Reservation reservation){
+        editReservation = reservation;
+        editReservation.setApproved(true);
+        update();
     }
     
 }

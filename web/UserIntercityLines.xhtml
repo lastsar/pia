@@ -8,107 +8,103 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
-        <title>TODO supply a title</title>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Intercity Lines</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
+    </h:head>
+    <h:body>
         
-        <h:form id="form">
-           <h:dataTable id="linesTable" value="#{UserController.intercityLineController.intercityLineService.intercityLines}" var="line">
-            <h:column>
+        <h:form>
+            <p:dataTable value="#{UserController.intercityLineController.intercityLineService.intercityLines}" var="line" styleClass="dataTable">
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Line Number"/>
-                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.carrierName}"/>
+                    <p:outputLabel value="Carrier"/>
+                    <p:inputText value="#{UserController.intercityLineController.intercityLineService.filter.carrierName}"/>
                 </f:facet>
-                <h:outputText value="#{line.carrier.name}"/>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.carrier.name}"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Departure Station"/>
-                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.departureCityName}"/>
+                    <p:outputLabel value="Departure Station"/>
+                    <p:inputText value="#{UserController.intercityLineController.intercityLineService.filter.departureCityName}"/>
                 </f:facet>
-                <h:outputText value="#{line.departureCity.name}"/>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.departureCity.name}"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Interstations"/>
-                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.intercityName}"/>
+                    <p:outputLabel value="Interstations"/>
+                    <p:inputText value="#{UserController.intercityLineController.intercityLineService.filter.intercityName}"/>
                 </f:facet>
-                <ui:repeat value="#{line.interCities}" var="city">
-                    #{city.name}
-                </ui:repeat>
-            </h:column>
-            <h:column>
+                <p:dataList value="#{line.interCities}" var="city">
+                    <p:outputLabel value="#{city.name}"/>
+                </p:dataList>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Arrval Station"/>
-                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.arrivalCityName}"/>
+                    <p:outputLabel value="Arrval Station"/>
+                    <p:inputText value="#{UserController.intercityLineController.intercityLineService.filter.arrivalCityName}"/>
                 </f:facet>
-                <h:outputText value="#{line.arrivalCity.name}"/>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.arrivalCity.name}"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Departure Date And Time"/>
-                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.departureDateAndTime}"/>
+                    <p:outputLabel value="Departure Date And Time"/>
+                    <p:inputText value="#{UserController.intercityLineController.intercityLineService.filter.departureDateAndTime}" placeholder="dd-mm-yyyy HH:mm" >
+                        <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+                    </p:inputText>
                 </f:facet>
-                <h:outputText value="#{line.departureDateAndTime}">
-                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                </h:outputText>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.departureDateAndTime}">
+                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+                </p:outputLabel>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Arrval Date And Time"/>
-                    <h:inputText value="#{UserController.intercityLineController.intercityLineService.filter.arrivalDateAndTime}"/>
+                    <p:outputLabel value="Arrval Date And Time"/>
+                    <p:inputText value="#{UserController.intercityLineController.intercityLineService.filter.arrivalDateAndTime}" placeholder="dd-mm-yyyy HH:mm">
+                        <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+                    </p:inputText>    
                 </f:facet>
-                <h:outputText value="#{line.arrivalDateAndTime}">
-                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                </h:outputText>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.arrivalDateAndTime}">
+                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+                </p:outputLabel>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Filter"/>
+                    <p:outputLabel value="Details"/>
                 </f:facet>
-                <h:commandButton value="filter" action="#{UserController.intercityLineController.intercityLineService.filterIntercityLines()}">
-                    <f:ajax execute="form" render="form:linesTable" />
-                </h:commandButton>
-            </h:column>
-            <h:column>
+                <p:commandButton value="Details" action="#{UserController.intercityLineController.intercityLineService.setEditIntercityLine(line)}" update="@(.panelGrid)"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Details"/>
+                    <p:outputLabel value="Reservation"/>
                 </f:facet>
-                <h:commandButton value="Details" action="#{UserController.intercityLineController.intercityLineService.setEditIntercityLine(line)}">
+                <p:commandButton value="Reserve" action="#{UserController.intercityLineController.reserve(line)}">
                     <f:ajax execute="form" render="detailsTable" />
-                </h:commandButton>
-            </h:column>
-            <h:column>
+                </p:commandButton>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Reservation"/>
+                    <p:commandButton value="Filter" action="#{UserController.intercityLineController.intercityLineService.filterIntercityLines()}" update="@(.dataTable)"/>
                 </f:facet>
-                <h:commandButton value="Reserve" action="#{UserController.intercityLineController.reserve(line)}">
-                    <f:ajax execute="form" render="detailsTable" />
-                </h:commandButton>
-            </h:column>
-        </h:dataTable>
+            </p:column>
+        </p:dataTable>
         </h:form>
         
         
-        <h:dataTable id="detailsTable">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Driver" />
-                </f:facet>
-                <h:outputText value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.driver.firstName}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Bus" />
-                </f:facet>
-                <h:outputText value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.bus.brand}" />
-            </h:column>
-        </h:dataTable>
-        
-    </body>
+        <p:panelGrid columns="1" styleClass="panelGrid">
+            <p:outputLabel value="Driver: " >
+                <p:outputLabel value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.driver.firstName}" />
+                <p:outputLabel value=" " />
+                <p:outputLabel value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.driver.lastName}" />
+            </p:outputLabel>
+            <p:outputLabel value="Bus: " >
+                <p:outputLabel value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.bus.brand}" />
+                <p:outputLabel value=" " />
+                <p:outputLabel value="#{UserController.intercityLineController.intercityLineService.editIntercityLine.bus.model}" />
+            </p:outputLabel>
+        </p:panelGrid>
+    </h:body>
     
 </html>

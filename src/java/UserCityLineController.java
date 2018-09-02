@@ -25,10 +25,7 @@ public class UserCityLineController {
     public UserCityLineController(RegisteredUser user, City city) {
         this.user = user;
         this.cityLineService = new CityLineService();
-        CityLine exampleCityLine = new CityLine();
-        exampleCityLine.setCity(city);
-        this.cityLineService.setExampleCityLine(exampleCityLine);
-        this.cityLineService.setByExample();
+        this.cityLineService.getByCity(city);
     }
 
     public RegisteredUser getUser() {

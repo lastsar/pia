@@ -26,46 +26,60 @@ public class Service<T> {
     
     public List<T> getAll(String hql){
         Session session = sessionFactory.getSession();
-        Query query = session.createQuery(hql);
-        List<T> entities = query.list();
-        session.close();
-        return entities;
+        try{
+            Query query = session.createQuery(hql);
+            List<T> entities = query.list();
+            return entities;
+        }finally{
+            session.close();
+        }
     }
     
     public void update(T entity){
         Session session = sessionFactory.getSession();
-        session.beginTransaction();
-        session.update(entity);
-        session.getTransaction().commit();
-        session.close();
+        try{
+            session.beginTransaction();
+            session.update(entity);
+            session.getTransaction().commit();
+        }finally{
+            session.close();
+        }
     }
     
     public void delete(T entity, List<T> entities){
         Session session = sessionFactory.getSession();
-        session.beginTransaction();
-        session.delete(entity);
-        session.getTransaction().commit();
-        session.close();
-        entities.remove(entity);
+        try{
+            session.beginTransaction();
+            session.delete(entity);
+            session.getTransaction().commit();
+            entities.remove(entity);
+        }finally{
+            session.close();
+        }
     }
     
     public void save(T entity, List<T> entities){
         Session session = sessionFactory.getSession();
-        session.beginTransaction();
-        session.save(entity);
-        session.getTransaction().commit();
-        session.close();
-        entities.add(entity);
+        try{
+            session.beginTransaction();
+            session.save(entity);
+            session.getTransaction().commit();
+            entities.add(entity);
+        }finally{
+            session.close();
+        }
     }
     
     public List<T> getByExample(T entity){
         Session session = sessionFactory.getSession();
-        Example example = Example.create(entity);
-        Criteria criteria = session.createCriteria(entity.getClass()).add(example);
-        List<T> entities = (List<T>) criteria.list();
-        session.close(); 
-        
-        return entities;
+        try{
+            Example example = Example.create(entity);
+            Criteria criteria = session.createCriteria(entity.getClass()).add(example);
+            List<T> entities = (List<T>) criteria.list();
+            return entities;
+        }finally{
+            session.close();
+        }
     }
     
 }

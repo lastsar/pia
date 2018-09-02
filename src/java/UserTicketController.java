@@ -29,16 +29,9 @@ public class UserTicketController {
         this.ticketService = new TicketService();
         this.ticketOfferService = new TicketOfferService();
         
-        Ticket exampleTicket = new Ticket();
-        exampleTicket.setUser(this.user);
-        this.ticketService.setExampleTicket(exampleTicket);
-        this.ticketService.setByExample();
+        this.ticketService.setByUser(user);
         
-        String category = this.user.getCategory();
-        TicketOffer exampleTicketOffer = new TicketOffer();
-        exampleTicketOffer.setStatus(category);
-        this.ticketOfferService.setExampleTicketOffer(exampleTicketOffer);
-        this.ticketOfferService.setByExample();
+        this.ticketOfferService.setByCategory(user.getCategory());
         
     }
 
@@ -79,4 +72,5 @@ public class UserTicketController {
         
         this.ticketService.save();
     }
+    
 }

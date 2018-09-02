@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this license header, choose License Headers in Project Properties.
+To change this license h:header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
-        <title>TODO supply a title</title>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Not Approved Tickets</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
+    </h:head>
+    <h:body>
         
-        <h:form id="ticketForm">
-            <h:dataTable id="ticketTable" value="#{AdminController.ticketService.getNotApproved()}" var="ticket">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Username"/>
+        <h:form>
+            <p:dataTable value="#{AdminController.ticketService.notApproved}" var="ticket" styleClass="dataTable">
+                <p:column>
+                    <f:facet name="h:header">
+                        <p:outputLabel value="Username"/>
                     </f:facet>
-                    <h:outputText value="#{ticket.user.userName}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="User category"/>
+                    <p:outputLabel value="#{ticket.user.userName}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="h:header">
+                        <p:outputLabel value="User category"/>
                     </f:facet>
-                    <h:outputText value="#{ticket.category}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Duration"/>
+                    <p:outputLabel value="#{ticket.category}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="h:header">
+                        <p:outputLabel value="Duration"/>
                     </f:facet>
-                    <h:outputText value="#{ticket.duration}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Approve"/>
+                    <p:outputLabel value="#{ticket.duration}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="h:header">
+                        <p:outputLabel value="Approve"/>
                     </f:facet>
-                    <h:commandButton value="#{ticket.setApproved(true)}">
-                        <f:ajax render="ticketTable"/>
-                    </h:commandButton>
-                </h:column>
-            </h:dataTable>
+                    <p:commandButton value="Approve" action="#{AdminController.ticketService.approveAndUpdate(ticket)}" update="@(.dataTable)"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="h:header">
+                        <p:outputLabel value="Reject"/>
+                    </f:facet>
+                    <p:commandButton value="Reject" action="#{AdminController.ticketService.delete(ticket)}" update="@(.dataTable)"/>
+                </p:column>
+            </p:dataTable>
         </h:form>
-    </body>
+    </h:body>
 </html>

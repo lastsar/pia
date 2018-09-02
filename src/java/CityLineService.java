@@ -2,9 +2,9 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import javax.faces.bean.ManagedBean;
+import model.City;
 import model.CityLine;
+import model.Station;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,6 +39,7 @@ public class CityLineService {
         this.newCityLine = new CityLine();
         this.cityLines = new ArrayList();
         this.allCityLines = service.getAll("from CityLine");
+        this.filter = new FilterCityLine();
     }
 
     public FilterCityLine getFilter() {
@@ -114,25 +115,41 @@ public class CityLineService {
         this.cityLines = service.getByExample(this.exampleCityLine);
     }
     
-    public void filterCityLines(){
+    public void getByCity(City city){
+        cityLines = new ArrayList<>();
+        for(CityLine line:allCityLines){
+            if(line.getCity().getName().equals(city.getName())){
+                cityLines.add(line);
+            }
+        }
+    }
+    
+    private Boolean containsInterstation(CityLine line, String interstationName){
         
-        this.cityLines = this.cityLines.stream().filter((line) -> {
-            Integer lineNumber = line.getLineNumber();
-            Date departureTime = line.getDepartureTime();
-            String departureStationName = line.getDepartureStation().getName();
-            List<String> interstationNames = line.getInterStations().stream().map((s)->(s.getName())).collect(Collectors.toList());
-            String arrivalStationName = line.getArrivalStation().getName();
-            
-            Integer fLineNumber = this.filter.getLineNumber();
-            String fDepartureStationName = this.filter.getDepartureStationName();
-            String fIntercityStationName = this.filter.getInterstationName();
-            String fArrivalStationName = this.filter.getArrivalStationName();
-            
-            return      (fLineNumber==null || fLineNumber.equals(lineNumber))
-                    &&  (fDepartureStationName==null || fDepartureStationName.equals(departureStationName))
-                    &&  (fIntercityStationName==null || interstationNames.contains(fIntercityStationName))
-                    &&  (fArrivalStationName==null || fArrivalStationName.equals(arrivalStationName));
-        }).collect(Collectors.toList());
+        for(Station interstation: line.getInterStations()){
+            if(interstationName.equals(interstation.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void filterCityLines(){
+        this.cityLines = new ArrayList<>();
+        for(CityLine line:this.allCityLines){
+            if(     (filter.getLineNumber()==null || filter.getLineNumber().equals(line.getLineNumber()) )
+                    &&
+                    (filter.getDepartureStationName().equals("") || filter.getDepartureStationName().equals(line.getDepartureStation().getName()) )
+                    &&
+                    (filter.getArrivalStationName().equals("") || filter.getArrivalStationName().equals(line.getArrivalStation().getName()) )
+                    &&
+                    (filter.getInterstationName().equals("") || containsInterstation(line, filter.getInterstationName()) )
+                ){
+                
+                this.cityLines.add(line);
+                
+            }
+        }
         
     }
     

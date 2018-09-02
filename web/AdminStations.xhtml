@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Stations</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     
@@ -22,50 +22,29 @@ and open the template in the editor.
                 <f:facet name="header">
                     <p:outputLabel value="Name"/>
                 </f:facet>
-                <p:inputText value="#{station.name}" rendered="#{station.editable}" />
-                <p:outputLabel value="#{station.name}" rendered="#{not station.editable}" />
+                <p:outputLabel value="#{station.name}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">
                     <p:outputLabel value="City"/>
                 </f:facet>
-                <p:commandButton value="Add" action="AdminCities" rendered="#{station.editable}" />
-                <p:outputLabel value="#{station.city.name}" rendered="#{not station.editable}" />
+                <p:outputLabel value="#{station.city.name}"/>
             </p:column>
             <p:column>
-                <p:commandButton value="Edit" action="#{AdminController.stationService.edit(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
-                <p:commandButton value="Update" action="#{AdminController.stationService.update()}" rendered="#{station.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton id="Delete" value="delete" action="#{AdminController.stationService.delete(station)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Departure Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Inter Station" action="#{AdminController.cityLineService.editCityLine.interStations.add(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Arrival Station" action="#{AdminController.cityLineService.editCityLine.setArrivalStation(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Departure Station" action="#{AdminController.cityLineService.newCityLine.setDepartureStation(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Inter Station" action="#{AdminController.cityLineService.newCityLine.interStations.add(station)}" rendered="#{not station.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Arrival Station" action="#{AdminController.cityLineService.newCityLine.setArrivalStation(station)}"/>
+                <p:commandButton value="Delete" action="#{AdminController.stationService.delete(station)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
             </p:column>
         </p:dataTable>
 
-        <h2>Add station to table</h2>
-        <p:panelGrid columns="2">
-            <p:outputLabel value="Name"/>
-            <p:inputText value="#{AdminController.stationService.newStation.name}" />
-            <p:outputLabel value="City"/>
-            <p:outputLabel value="#{AdminController.stationService.newStation.city.name}">
-                <p:commandButton value="Add" action="AdminCities"/>
+        <h2>Add new station to table</h2>
+        <p:panelGrid columns="1" styleClass="panelGrid">
+            <p:outputLabel value="Name">
+                <p:inputText value="#{AdminController.stationService.newStation.name}" />
+            </p:outputLabel>
+            <p:outputLabel value="City"><p:dataList value="#{AdminController.cityService.allCities}" var="city" paginator="true" rows="10" styleClass="paginated" >
+                    <p:outputLabel value="#{city.name}" style="float:left"/>
+                    <p:commandLink value="Add" action="#{AdminController.stationService.newStation.setCity(city)}" style="float:right" update="@(.panelGrid)"/>
+                </p:dataList>
+                <p:outputLabel value="#{AdminController.stationService.newStation.city.name}"/>
             </p:outputLabel>
             <p:commandButton value="Save" action="#{AdminController.stationService.save}" update="@(.dataTable)"/>
         </p:panelGrid>

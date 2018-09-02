@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Drivers</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     
@@ -37,52 +37,49 @@ and open the template in the editor.
                     <p:outputLabel value="Date Of Birdth"/>
                 </f:facet>
                 <p:calendar value="#{driver.dateOfBirdth}" rendered="#{driver.editable}" />   
-                <p:outputLabel value="#{driver.dateOfBirdth}" rendered="#{not driver.editable}" />
+                <p:outputLabel value="#{driver.dateOfBirdth}" rendered="#{not driver.editable}" >
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:outputLabel>
             </p:column>
             <p:column>
                 <f:facet name="header">
                     <p:outputLabel value="Driver License"/>
                 </f:facet>
                 <p:calendar value="#{driver.driverLicenseIssueYear}" rendered="#{driver.editable}" />
-                <p:outputLabel value="#{driver.driverLicenseIssueYear}" rendered="#{not driver.editable}" />
+                <p:outputLabel value="#{driver.driverLicenseIssueYear}" rendered="#{not driver.editable}" >
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:outputLabel>
             </p:column>
             <p:column>
                 <p:commandButton value="Edit" action="#{AdminController.driverService.edit(driver)}" rendered="#{not driver.editable}" update="@(.dataTable)"/>
                 <p:commandButton value="Update" action="#{AdminController.driverService.update()}" rendered="#{driver.editable}" update="@(.dataTable)"/>
             </p:column>
             <p:column>
-                <p:commandButton id="Delete" value="delete" action="#{AdminController.driverService.delete(driver)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Driver To City Line" action="#{AdminController.cityLineService.editCityLine.drivers.add(driver)}" rendered="#{not driver.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Driver To City Line" action="#{AdminController.cityLineService.newCityLine.drivers.add(driver)}" rendered="#{not driver.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="EDIT Add Driver To Inter City Line" action="#{AdminController.intercityLineService.editIntercityLine.setDriver(driver)}" rendered="#{not driver.editable}" update="@(.dataTable)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton value="NEW Add Driver To Inter City Line" action="#{AdminController.intercityLineService.newIntercityLine.setDriver(driver)}" rendered="#{not driver.editable}" update="@(.dataTable)"/>
+                <p:commandButton value="Delete" action="#{AdminController.driverService.delete(driver)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
             </p:column>
         </p:dataTable>
 
         <h2>Add driver to table</h2>
             
-            <p:panelGrid columns="2">
-                <p:outputLabel value="First Name"/>
-                <p:inputText value="#{AdminController.driverService.newDriver.firstName}" />
-                <p:outputLabel value="Last Name"/>
-                <p:inputText value="#{AdminController.driverService.newDriver.lastName}" />
-                <p:outputLabel value="Date Of Birdth"/>
-                <p:calendar value="#{AdminController.driverService.newDriver.dateOfBirdth}" />
-                <p:outputLabel value="Driver License Year"/>
-                <p:calendar value="#{AdminController.driverService.newDriver.driverLicenseIssueYear}" />
+            <p:panelGrid columns="1">
+                <p:outputLabel value="First Name">
+                    <p:inputText value="#{AdminController.driverService.newDriver.firstName}" />
+                </p:outputLabel>
+                <p:outputLabel value="Last Name">
+                    <p:inputText value="#{AdminController.driverService.newDriver.lastName}" />
+                </p:outputLabel>
+                <p:outputLabel value="Date Of Birdth">
+                    <p:calendar value="#{AdminController.driverService.newDriver.dateOfBirdth}" />
+                </p:outputLabel>
+                <p:outputLabel value="Driver License Year">
+                    <p:calendar value="#{AdminController.driverService.newDriver.driverLicenseIssueYear}" />
+                </p:outputLabel>
                 <p:commandButton value="Save" action="#{AdminController.driverService.save()}" update="@(.dataTable)"/>
             </p:panelGrid>
 
     </h:form>
 
+        
     <h:form>
         <p:panelGrid columns="1" style="float:right">
             <p:commandButton value="Busses" action="AdminBusses"/>

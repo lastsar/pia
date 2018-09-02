@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import model.RegisteredUser;
 import model.Ticket;
 
 /*
@@ -22,6 +23,7 @@ public class TicketService {
     private Ticket newTicket;
     private List<Ticket> tickets;
     private List<Ticket> allTickets;
+    private List<Ticket> notApproved;
     
     private Service<Ticket> service;
     
@@ -36,6 +38,17 @@ public class TicketService {
         this.allTickets = service.getAll("from Ticket");
     }
 
+    public List<Ticket> getNotApproved() {
+        loadNotApproved();
+        return notApproved;
+    }
+
+    public void setNotApproved(List<Ticket> notApproved) {
+        this.notApproved = notApproved;
+    }
+
+    
+    
     public Ticket getExampleTicket() {
         return exampleTicket;
     }
@@ -101,8 +114,28 @@ public class TicketService {
         this.tickets = service.getByExample(this.exampleTicket);
     }
     
-    public List<Ticket> getNotApproved(){
-        return this.allTickets.stream().filter((ticket)->(ticket.getApproved()==false)).collect(Collectors.toList());
+    public void loadNotApproved(){
+        notApproved = new ArrayList<>();
+        for(Ticket ticket: allTickets){
+            if(!ticket.getApproved()){
+                notApproved.add(ticket);
+            }
+        }
+    }
+    
+    public void setByUser(RegisteredUser user){
+        tickets = new ArrayList<>();
+        for(Ticket ticket: allTickets){
+            if(ticket.getUser().getUserName().equals(user.getUserName())){
+                tickets.add(ticket);
+            }
+        }
+    }
+    
+    public void approveAndUpdate(Ticket ticket){
+        editTicket = ticket;
+        editTicket.setApproved(true);
+        update();
     }
     
 }

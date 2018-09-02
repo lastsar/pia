@@ -100,4 +100,13 @@ public class TicketOfferService {
     public void setByExample(){
         this.ticketOffers = service.getByExample(this.exampleTicketOffer);
     }
+    
+    public void setByCategory(String category){
+        ticketOffers = new ArrayList<>();
+        for(TicketOffer offer:allTicketOffers){
+            if(offer.getStatus().equals(category)){
+                ticketOffers.add(offer);
+            }
+        }
+    }
 }

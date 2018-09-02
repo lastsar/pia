@@ -8,154 +8,160 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Intercity Lines</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     
     <h:body>
 
-    <h:form id="intercityLineForm">
-        <h:dataTable id="intercityLineTable" value="#{AdminController.intercityLineService.allIntercityLines}" var="intercityLine">
-            <h:column>
+    <h:form>
+        <p:dataTable value="#{AdminController.intercityLineService.allIntercityLines}" var="intercityLine" styleClass="dataTable"  >
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Departure Date and Time"/>
+                    <p:outputLabel value="Departure Date and Time"/>
                 </f:facet>
-                <h:inputText value="#{intercityLine.departureDateAndTime}" rendered="#{intercityLine.editable}" >
-                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                </h:inputText>
-                <h:outputText value="#{intercityLine.departureDateAndTime}" rendered="#{not intercityLine.editable}" >
-                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                </h:outputText>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{intercityLine.departureDateAndTime}" >
+                    <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" />
+                </p:outputLabel>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Arrival Date and Time"/>
+                    <p:outputLabel value="Arrival Date and Time"/>
                 </f:facet>
-                <h:inputText value="#{intercityLine.arrivalDateAndTime}" rendered="#{intercityLine.editable}" >
-                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                </h:inputText>
-                <h:outputText value="#{intercityLine.arrivalDateAndTime}" rendered="#{not intercityLine.editable}" >
-                    <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                </h:outputText>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{intercityLine.arrivalDateAndTime}" >
+                    <f:convertDateTime pattern = "dd/MM/yyyy HH:mm" />
+                </p:outputLabel>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Carrier"/>
+                    <p:outputLabel value="Carrier"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminCarriers" rendered="#{intercityLine.editable}" />
-                <h:outputText value="#{intercityLine.carrier.name}" />
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{intercityLine.carrier.name}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Departure City"/>
+                    <p:outputLabel value="Departure City"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminCities" rendered="#{intercityLine.editable}" />
-                <h:outputText value="#{intercityLine.departureCity.name}" />
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{intercityLine.departureCity.name}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Inter City"/>
+                    <p:outputLabel value="Inter City"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminCities" rendered="#{intercityLine.editable}" />
-                <ui:repeat value="#{intercityLine.interCities}" var="city">
-                    #{city.name}<h:commandButton value="Remove" action="#{AdminController.intercityLineService.editIntercityLine.interCities.remove(city)}" rendered="#{intercityLine.editable}" />
-                </ui:repeat>
-            </h:column>
-            <h:column>
+                <p:dataList value="#{intercityLine.interCities}" var="city">
+                    <p:outputLabel value="#{city.name}" />
+                </p:dataList>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Arrival City"/>
+                    <p:outputLabel value="Arrival City"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminCities" rendered="#{intercityLine.editable}" />
-                <h:outputText value="#{intercityLine.arrivalCity.name}" />
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{intercityLine.arrivalCity.name}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Driver"/>
+                    <p:outputLabel value="Driver"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminDrivers" rendered="#{intercityLine.editable}" />
-                <h:outputText value="#{intercityLine.driver.firstName}" />
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{intercityLine.driver.firstName}" />
+                <p:outputLabel value="#{intercityLine.driver.lastName}" />
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Bus"/>
+                    <p:outputLabel value="Bus"/>
                 </f:facet>
-                <h:commandButton value="Add" action="AdminBusses" rendered="#{intercityLine.editable}" />
-                <h:outputText value="#{intercityLine.bus.brand}" />
-            </h:column>
-            <h:column>
-                <h:commandLink value="Edit" action="#{AdminController.intercityLineService.edit(intercityLine)}" rendered="#{not intercityLine.editable}" >
-                    <f:ajax render="intercityLineForm:intercityLineTable" />
-                </h:commandLink>
-                <h:commandLink value="Update" action="#{AdminController.intercityLineService.update()}" rendered="#{intercityLine.editable}" >
-                    <f:ajax execute="@form" render="intercityLineForm:intercityLineTable" />
-                </h:commandLink>
-            </h:column>
-            <h:column>
-                <h:commandLink id="Delete" value="delete" action="#{AdminController.intercityLineService.delete(intercityLine)}"
-                               onclick="return confirm('Are you sure?')">
-                    <f:ajax render="intercityLineForm:intercityLineTable" />
-                </h:commandLink>
-            </h:column>
-        </h:dataTable>
+                <p:outputLabel value="#{intercityLine.bus.model}" />
+            </p:column>
+            <p:column>
+                <p:commandButton value="Delete" action="#{AdminController.intercityLineService.delete(intercityLine)}" onclick="return confirm('Are you sure?')" update="@(.dataTable)"/>
+            </p:column>
+        </p:dataTable>
+        
+        
 
-        <h2>Add intercityLine to table</h2>
-        <h:outputLabel value="Departure Date and Time">
-            <h:inputText value="#{AdminController.intercityLineService.newIntercityLine.departureDateAndTime}" >
-                <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-            </h:inputText>
-        </h:outputLabel><br/>
-        <h:outputLabel value="Arrival Date and Time">
-            <h:inputText value="#{AdminController.intercityLineService.newIntercityLine.arrivalDateAndTime}" >
-                <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-            </h:inputText>
-        </h:outputLabel><br/>
-        <h:outputLabel value="Carrier">
-            <h:commandButton value="Add" action="AdminCarriers"/>
-            <h:outputText value="#{AdminController.intercityLineService.newIntercityLine.carrier.name}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Departure City">
-            <h:commandButton value="Add" action="AdminCities"/>
-            <h:outputText value="#{AdminController.intercityLineService.newIntercityLine.departureCity.name}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Inter Cities">
-            <h:commandButton value="Add" action="AdminCities"/>
-            <ui:repeat value="#{AdminController.intercityLineService.newIntercityLine.interCities}" var="city">
-                #{city.name}<h:commandButton value="Remove" action="#{AdminController.intercityLineService.newIntercityLine.interCities.remove(city)}" />
-            </ui:repeat>
-        </h:outputLabel><br/>
-        <h:outputLabel value="Arrival City">
-            <h:commandButton value="Add" action="AdminCities"/>
-            <h:outputText value="#{AdminController.intercityLineService.newIntercityLine.arrivalCity.name}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Driver">
-            <h:commandButton value="Add" action="AdminDrivers"/>
-            <h:outputText value="#{AdminController.intercityLineService.newIntercityLine.driver.firstName}" />
-        </h:outputLabel><br/>
-        <h:outputLabel value="Bus">
-            <h:commandButton value="Add" action="AdminBusses"/>
-            <h:outputText value="#{AdminController.intercityLineService.newIntercityLine.bus.model}" />
-        </h:outputLabel><br/>
-        <h:commandButton value="Save" action="#{AdminController.intercityLineService.save()}">
-            <f:ajax execute="intercityLineForm" render="intercityLineForm:intercityLineTable" />
-        </h:commandButton>
 
-        </h:form>
+        <h2>Add new Intercity Line to table</h2>
+        <p:panelGrid columns="1" styleClass="panelGrid">
+        <p:outputLabel value="Departure Date and Time">
+            <p:inputText value="#{AdminController.intercityLineService.newIntercityLine.departureDateAndTime}" placeholder="dd-mm-yyyy HH:mm">
+                <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+            </p:inputText>
+        </p:outputLabel>
+        <p:outputLabel value="Arrival Date and Time">
+            <p:inputText value="#{AdminController.intercityLineService.newIntercityLine.arrivalDateAndTime}" placeholder="dd-mm-yyyy HH:mm">
+                <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+            </p:inputText>
+        </p:outputLabel>
+        <p:outputLabel value="Carier">
+            <p:dataList value="#{AdminController.carrierService.allCarriers}" var="carrier" paginator="true" rows="10" styleClass="paginated">
+                <p:outputLabel value="#{carrier.name}" style="float:left"/>
+                <p:commandLink value="Add" action="#{AdminController.intercityLineService.newIntercityLine.setCarrier(carrier)}" style="float:right" update="@(.panelGrid)"/>
+            </p:dataList>
+            <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.carrier.name}"/>
+        </p:outputLabel>
+        <p:outputLabel value="Departure City">
+                <p:dataList value="#{AdminController.cityService.allCities}" var="city" paginator="true" rows="10" styleClass="paginated">
+                    <p:outputLabel value="#{city.name}" style="float:left"/>
+                    <p:commandLink value="Add" action="#{AdminController.intercityLineService.newIntercityLine.setDepartureCity(city)}" style="float:right" update="@(.panelGrid)"/>
+                </p:dataList>
+                <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.departureCity.name}"/>
+        </p:outputLabel>
+        <p:outputLabel value="Inter Cities">
+            <p:dataList value="#{AdminController.cityService.allCities}" var="city" paginator="true" rows="10" styleClass="paginated" >
+                <p:outputLabel value="#{city.name}" style="float:left"/>
+                <p:commandLink value="Add" action="#{AdminController.intercityLineService.newIntercityLine.interCities.add(city)}" style="float:right" update="@(.panelGrid)"/>
+            </p:dataList>
+            <p:dataList value="#{AdminController.intercityLineService.newIntercityLine.interCities}" var="city" paginator="true" rows="10" styleClass="paginated">
+                <p:outputLabel value="#{city.name}" style="float:left"/>
+                <p:commandLink value="Remove" action="#{AdminController.intercityLineService.newIntercityLine.interCities.remove(city)}" style="float:right" update="@(.panelGrid)"/>
+            </p:dataList>
+        </p:outputLabel>
+        <p:outputLabel value="Arrival City">
+            <p:dataList value="#{AdminController.cityService.allCities}" var="city" paginator="true" rows="10" styleClass="paginated">
+                <p:outputLabel value="#{city.name}" style="float:left"/>
+                <p:commandLink value="Add" action="#{AdminController.intercityLineService.newIntercityLine.setArrivalCity(city)}" style="float:right" update="@(.panelGrid)"/>
+            </p:dataList>
+            <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.arrivalCity.name}"/>
+        </p:outputLabel>
+        <p:outputLabel value="Driver">
+            <p:dataList value="#{AdminController.driverService.allDrivers}" var="driver" paginator="true" rows="10" styleClass="paginated">
+                <p:outputLabel value="#{driver.firstName}" style="float:left"/>
+                <p:outputLabel value="#{driver.lastName}" style="float:left"/>
+                <p:commandLink value="Add" action="#{AdminController.intercityLineService.newIntercityLine.setDriver(driver)}" style="float:right" update="@(.panelGrid)"/>
+            </p:dataList>
+            <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.driver.firstName}"/>
+            <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.driver.lastName}"/>
+        </p:outputLabel>
+        <p:outputLabel value="Bus">
+            <p:dataList value="#{AdminController.busService.allBusses}" var="bus" paginator="true" rows="10" styleClass="paginated">
+                <p:outputLabel value="#{bus.brand}" style="float:left"/>
+                <p:outputLabel value="#{bus.model}" style="float:left"/>
+                <p:commandLink value="Add" action="#{AdminController.intercityLineService.newIntercityLine.setBus(bus)}" style="float:right" update="@(.panelGrid)"/>
+            </p:dataList>
+            <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.bus.brand}"/>
+            <p:outputLabel value="#{AdminController.intercityLineService.newIntercityLine.bus.model}"/>
+        </p:outputLabel>
+        <p:commandButton value="Save" action="#{AdminController.intercityLineService.save()}" update="@(.dataTable)"/>
+        </p:panelGrid>
+    </h:form>
         
         
         
         
         
-        <h:form>
-            <h:commandButton value="Cities" action="AdminCities"/>
-            <h:commandButton value="Stations" action="AdminStations"/>
-            <h:commandButton value="Drivers" action="AdminDrivers"/>
-            <h:commandButton value="CityLines" action="AdminCityLines"/>
-            <h:commandButton value="Busses" action="AdminBusses"/>
-            <h:commandButton value="Carriers" action="AdminCarriers"/>
-            <h:commandButton value="IntercityLines" action="AdminIntercityLines"/>
-            <h:commandButton value="TicketOffers" action="AdminTicketOffers"/>
-        </h:form>
+    <h:form>
+        <p:panelGrid columns="1" style="float:right">
+            <p:commandButton value="Busses" action="AdminBusses"/>
+            <p:commandButton value="Cities" action="AdminCities"/>
+            <p:commandButton value="Stations" action="AdminStations"/>
+            <p:commandButton value="Drivers" action="AdminDrivers"/>
+            <p:commandButton value="CityLines" action="AdminCityLines"/>
+            <p:commandButton value="Carriers" action="AdminCarriers"/>
+            <p:commandButton value="IntercityLines" action="AdminIntercityLines"/>
+            <p:commandButton value="TicketOffers" action="AdminTicketOffers"/>
+        </p:panelGrid>
+    </h:form>
     </h:body>
 </html>

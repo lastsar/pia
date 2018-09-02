@@ -7,20 +7,24 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <title>Log In</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>Log In</div>
+    </h:head>
+    <h:body>
         
         <h:form id="loginForm">
-            <h:outputText value="Username"/>
-            <h:inputText value="#{UserController.user.userName}" />
-            <h:outputText value="Password"/>
-            <h:inputText value="#{UserController.user.password}" />
-            <h:commandButton value="Log In" action="#{UserController.login()}"/>
+            <p:panelGrid columns="1">
+                <p:outputLabel value="Username">
+                    <p:inputText value="#{UserController.user.userName}" />
+                </p:outputLabel>
+                <p:outputLabel value="Password">
+                    <p:password value="#{UserController.user.password}" />
+                </p:outputLabel>
+                <h:commandButton value="Log In" action="#{UserController.login()}"/>
+            </p:panelGrid>
         </h:form>
-    </body>
+    </h:body>
 </html>

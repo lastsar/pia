@@ -8,7 +8,8 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Registration</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,7 +19,21 @@ and open the template in the editor.
         
         <p:messages id="messages" showDetail="true" autoUpdate="true"/>
         
-        <h:form id="registrationForm">
+        <h:form>
+            <p:panelGrid columns="1" styleClass="panelGrid">
+                <p:outputLabel id="city" value="City">
+                    <p:commandButton value="Add City" rendered="#{not UserController.user.editable}" action="#{UserController.user.setEditable(true)}" update="@(.panelGrid)"/>
+                    <p:commandButton value="Save City" rendered="#{UserController.user.editable}" action="#{UserController.user.setEditable(false)}" update="@(.panelGrid)"/>
+                    <p:dataList value="#{UserController.cityService.allCities}" var="city" paginator="true" rows="5" styleClass="paginated" rendered="#{UserController.user.editable}">
+                        <p:outputLabel value="#{city.name}" style="float:left"/>
+                        <p:commandLink value="Add" action="#{UserController.user.setCity(city)}" style="float:right" update="@(.panelGrid)" />
+                    </p:dataList>
+                    <p:outputLabel id="cityName" value="#{UserController.user.city.name}"/>
+                </p:outputLabel>
+            </p:panelGrid>
+        </h:form>
+        
+        <h:form>
             <p:panelGrid columns="2">
                 <p:outputLabel for="firstName" value="First Name:"/>
                 <p:inputText id="firstName" value="#{UserController.user.firstName}" label="First Name" required="true"/>
@@ -31,11 +46,7 @@ and open the template in the editor.
                 <p:outputLabel for="pwd2" value="Confirm Password:" />
                 <p:password id="pwd2" value="#{UserController.user.password}" label="Confirm Password" required="true" >
                     <f:validateRegex pattern="(?=(.*[a-z]){3,})(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?])[A-Za-z\d$@$!%*?]{6,12}" />
-                </p:password>   
-                <p:outputLabel for="city" value="City:"/>
-                <p:selectOneMenu value="#{UserController.cityService.allCities}" var="city">
-                    <f:selectItem itemLabel="#{city.name}" itemValue="#{UserController.user.setCity(city)}">
-                </p:selectOneMenu>
+                </p:password>
                 <p:outputLabel for="street" value="Street:"/>
                 <p:inputText id="street" value="#{UserController.user.street}" label="Street" required="true" />
                 <p:outputLabel for="dateOfBirdth" value="Date Of Birdth:"/>

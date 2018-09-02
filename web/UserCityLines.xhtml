@@ -8,83 +8,76 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
-        <title>TODO supply a title</title>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>City Lines</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
+    </h:head>
+    <h:body>
         
-        <h:form id="form">
-           <h:dataTable id="linesTable" value="#{UserController.cityLineController.cityLineService.cityLines}" var="line">
-            <h:column>
+        <h:form >
+           <p:dataTable value="#{UserController.cityLineController.cityLineService.cityLines}" var="line" paginator="true" rows="10" styleClass="dataTable">
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Line Number"/>
-                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.lineNumber}"/>
+                    <p:outputLabel value="Line Number"/>
+                    <p:inputText value="#{UserController.cityLineController.cityLineService.filter.lineNumber}"/>
                 </f:facet>
-                <h:outputText value="#{line.lineNumber}"/>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.lineNumber}"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Departure Station"/>
-                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.departureStationName}"/>
+                    <p:outputLabel value="Departure Station"/>
+                    <p:inputText value="#{UserController.cityLineController.cityLineService.filter.departureStationName}"/>
                 </f:facet>
-                <h:outputText value="#{line.departureStation.name}"/>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.departureStation.name}"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Interstations"/>
-                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.interstationName}"/>
+                    <p:outputLabel value="Interstations"/>
+                    <p:inputText value="#{UserController.cityLineController.cityLineService.filter.interstationName}"/>
                 </f:facet>
-                <ui:repeat value="#{line.interStations}" var="station">
-                    #{station.name}
-                </ui:repeat>
-            </h:column>
-            <h:column>
+                <p:dataList value="#{line.interStations}" var="station">
+                    <p:outputLabel value="#{station.name}"/>
+                </p:dataList>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Arrval Station"/>
-                    <h:inputText value="#{UserController.cityLineController.cityLineService.filter.arrivalStationName}"/>
+                    <p:outputLabel value="Arrval Station"/>
+                    <p:inputText value="#{UserController.cityLineController.cityLineService.filter.arrivalStationName}"/>
                 </f:facet>
-                <h:outputText value="#{line.arrivalStation.name}"/>
-            </h:column>
-            <h:column>
+                <p:outputLabel value="#{line.arrivalStation.name}"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Filter"/>
+                    <p:outputLabel value="Details"/>
                 </f:facet>
-                <h:commandButton value="filter" action="#{UserController.cityLineController.cityLineService.filterCityLines()}">
-                    <f:ajax execute="form" render="form:linesTable" />
-                </h:commandButton>
-            </h:column>
-            <h:column>
+                <p:commandButton value="Details" action="#{UserController.cityLineController.cityLineService.setEditCityLine(line)}" update="@(.details)"/>
+            </p:column>
+            <p:column>
                 <f:facet name="header">
-                    <h:outputText value="Details"/>
+                    <p:commandButton value="Filter" action="#{UserController.cityLineController.cityLineService.filterCityLines()}" update="@(.dataTable)"/>
                 </f:facet>
-                <h:commandButton action="#{UserController.cityLineController.cityLineService.setEditCityLine(line)}">
-                    <f:ajax execute="form" render="detailsTable" />
-                </h:commandButton>
-            </h:column>
-        </h:dataTable>
+            </p:column>
+        </p:dataTable>
         </h:form>
         
         
-        <h:dataTable id="detailsTable">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Departure Time" />
-                </f:facet>
-                <h:outputText value="#{UserController.cityLineController.cityLineService.editCityLine.departureTime}">
-                    <f:convertDateTime pattern = "HH:mm:ss" />
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Drivers" />
-                </f:facet>
-                <ui:repeat value="#{UserController.cityLineController.cityLineService.editCityLine.drivers}" var="driver">
-                    #{driver.firstName}
-                </ui:repeat>
-            </h:column>
-        </h:dataTable>
-    </body>
+        <p:panelGrid columns="1" styleClass="details">
+            <p:outputLabel value="Schedule" >
+                <p:dataList value="#{UserController.cityLineController.cityLineService.editCityLine.schedule}" var="departureTime">
+                    <p:outputLabel value="#{departureTime}">
+                        <f:convertDateTime pattern="HH:mm"/>
+                    </p:outputLabel>
+                </p:dataList>
+            </p:outputLabel>
+            <p:outputLabel>
+                <p:outputLabel value="Drivers" />
+                <p:dataList value="#{UserController.cityLineController.cityLineService.editCityLine.drivers}" var="driver">
+                    <p:outputLabel value="#{driver.firstName}"/>
+                    <p:outputLabel value="#{driver.lastName}"/>
+                </p:dataList>
+            </p:outputLabel>
+        </p:panelGrid>
+    </h:body>
 </html>

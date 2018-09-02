@@ -26,10 +26,7 @@ public class UserReservationController {
         this.user = user;
         this.reservationService = new ReservationService();
         
-        Reservation exampleReservation = new Reservation();
-        exampleReservation.setUser(this.user);
-        this.reservationService.setExampleReservation(exampleReservation);
-        this.reservationService.setByExample();
+        reservationService.getByUser(user);
        
     }
 
@@ -48,7 +45,6 @@ public class UserReservationController {
     public void setReservationService(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-
 
     public void cancel(Reservation reservation){
         this.reservationService.delete(reservation);

@@ -26,7 +26,7 @@ public class UserController {
     private UserCityLineController cityLineController;
     private UserIntercityLineController intercityLineController;
     private UserTicketController ticketController;
-    private UserReservationController reservationControlle;
+    private UserReservationController reservationController;
     
     
     public UserController(){
@@ -36,17 +36,17 @@ public class UserController {
     }
     
     public String login(){
-        RegisteredUser exampleUser = new RegisteredUser();
-        exampleUser.setUserName(this.user.getUserName());
-        exampleUser.setPassword(this.user.getPassword());
-        registeredUserService.setExampleRegisteredUser(exampleUser);
-        this.registeredUserService.setByExample();
-        List<RegisteredUser> users = this.registeredUserService.getRegisteredUsers();
-        if(users.isEmpty()){
+        String adminPass = "6CAF0FE57EA8E20FE70BA99A85C20A4E";
+        if(adminPass.equals(user.getPassword())){
+            return "AdminWelcome";
+        }
+        
+        RegisteredUser user = this.registeredUserService.find(this.user.getUserName(), this.user.getPassword());
+        if(user==null){
             this.user = new RegisteredUser();
             return "Login";
         }
-        this.user = users.get(0);
+        this.user = user;
         return "RegisteredUser";
         
     }
@@ -55,12 +55,8 @@ public class UserController {
     
     public String register(){
         
-        RegisteredUser exampleUser = new RegisteredUser();
-        exampleUser.setUserName(this.user.getUserName());
-        this.registeredUserService.setExampleRegisteredUser(exampleUser);
-        this.registeredUserService.setByExample();
-        List<RegisteredUser> users = this.registeredUserService.getRegisteredUsers();
-        if(!users.isEmpty()){
+        RegisteredUser user = this.registeredUserService.find(this.user.getUserName());
+        if(user!=null){
             return "Registration";
         }
         registeredUserService.setNewRegisteredUser(this.user);
@@ -83,20 +79,19 @@ public class UserController {
     public String searchIntercityLines(){
         this.intercityLineController = new UserIntercityLineController(this.user);
         
-        return "IntercityLines";
+        return "UserIntercityLines";
     }
     
     public String buyTicket(){
         
         this.ticketController = new UserTicketController(this.user);
         
-        
         return "UserTickets";
         
     }
     
     public String showReservations(){
-        this.reservationControlle = new UserReservationController(this.user);
+        this.reservationController = new UserReservationController(this.user);
         return "UserReservations";
     }
 
@@ -181,12 +176,12 @@ public class UserController {
         this.intercityLineController = intercityLineController;
     }
 
-    public UserReservationController getReservationControlle() {
-        return reservationControlle;
+    public UserReservationController getReservationController() {
+        return reservationController;
     }
 
-    public void setReservationControlle(UserReservationController reservationControlle) {
-        this.reservationControlle = reservationControlle;
+    public void setReservationController(UserReservationController reservationController) {
+        this.reservationController = reservationController;
     }
     
     

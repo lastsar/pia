@@ -122,7 +122,10 @@ public class IntercityLineService {
     
     public void filterIntercityLines(){
                 
-        this.intercityLines = this.intercityLines.stream().filter((line) -> {
+        this.intercityLines = new ArrayList<>();
+        
+        for(IntercityLine line: this.allIntercityLines){
+            
             String carrierName = line.getCarrier().getName();
             String departureCity = line.getDepartureCity().getName();
             List<String> intercityNames = line.getInterCities().stream().map((city)->(city.getName())).collect(Collectors.toList());
@@ -140,15 +143,16 @@ public class IntercityLineService {
             
             
             
-            return      (fCarrierName==null || fCarrierName.equals(carrierName))
-                    &&  (fDepartureCityName==null || fDepartureCityName.equals(departureCity))
-                    &&  (fIntercityName==null || intercityNames.contains(fIntercityName))
-                    &&  (fArrivalCityName==null || fArrivalCityName.equals(arrivalCityName))
+            if(      (fCarrierName.equals("") || fCarrierName.equals(carrierName))
+                    &&  (fDepartureCityName.equals("") || fDepartureCityName.equals(departureCity))
+                    &&  (fIntercityName.equals("") || intercityNames.contains(fIntercityName))
+                    &&  (fArrivalCityName.equals("") || fArrivalCityName.equals(arrivalCityName))
                     &&  (fDepartureDateAndTime==null || fDepartureDateAndTime.equals(deartureDateAndTime))
-                    &&  (fArrivalDateAndTime==null || fArrivalDateAndTime.equals(arrivalDateAndTime));
-
-        }).collect(Collectors.toList());
-        
+                    &&  (fArrivalDateAndTime==null || fArrivalDateAndTime.equals(arrivalDateAndTime))
+            ){
+                this.intercityLines.add(line);
+            }
+        }
     }
     
 }

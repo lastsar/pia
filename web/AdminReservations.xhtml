@@ -7,57 +7,61 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
-        <title>TODO supply a title</title>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Not Approved</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
+    </h:head>
+    <h:body>
         
-        <h:form id="reservationForm">
-            <h:dataTable id="reservationTable" value="#{AdminController.reservationService.getNotApproved()}" var="reservation">
-                <h:column>
+        <h:form>
+            <p:dataTable value="#{AdminController.reservationService.notApproved}" var="reservation" styleClass="dataTable">
+                <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Username"/>
+                        <p:outputLabel value="Username"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.user.userName}"/>
-                </h:column>
-                <h:column>
+                    <p:outputLabel value="#{reservation.user.userName}"/>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Departure City"/>
+                        <p:outputLabel value="Departure City"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.line.departureCity.name}"/>
-                </h:column>
-                <h:column>
+                    <p:outputLabel value="#{reservation.line.departureCity.name}"/>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Arrival City"/>
+                        <p:outputLabel value="Arrival City"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.line.arrivalCity.name}"/>
-                </h:column>
-                <h:column>
+                    <p:outputLabel value="#{reservation.line.arrivalCity.name}"/>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Departure Date And Time"/>
+                        <p:outputLabel value="Departure Date And Time"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.line.departureDateAndTime}">
-                        <f:convertDateTime pattern = "dd-mm-yyyy HH:mm:ss" />
-                    </h:outputText>
-                </h:column>
-                <h:column>
+                    <p:outputLabel value="#{reservation.line.departureDateAndTime}">
+                        <f:convertDateTime pattern = "dd-mm-yyyy HH:mm" />
+                    </p:outputLabel>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Number of seats in a bus"/>
+                        <p:outputLabel value="Number of seats in a bus"/>
                     </f:facet>
-                    <h:outputText value="#{reservation.line.bus.numberOfSeats}"/>
-                </h:column>
-                <h:column>
+                    <p:outputLabel value="#{reservation.line.bus.numberOfSeats}"/>
+                </p:column>
+                <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Approve"/>
+                        <p:outputLabel value="Approve"/>
                     </f:facet>
-                    <h:commandButton value="#{reservation.setApproved(true)}">
-                        <f:ajax render="reservationTable"/>
-                    </h:commandButton>
-                </h:column>
-            </h:dataTable>
+                    <p:commandButton value="Approve" action="#{AdminController.reservationService.approveAndUpdate(reservation)}" update="@(.dataTable)"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <p:outputLabel value="Reject"/>
+                    </f:facet>
+                    <p:commandButton value="Reject" action="#{AdminController.reservationService.delete(reservation)}" update="@(.dataTable)"/>
+                </p:column>
+            </p:dataTable>
         </h:form>
-    </body>
+    </h:body>
 </html>

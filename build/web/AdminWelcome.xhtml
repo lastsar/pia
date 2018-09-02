@@ -6,21 +6,28 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <head>
-        <title>TODO supply a title</title>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Welcome Admin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     
+    <h:body>
         <h:form>
-            <h:commandButton value="Cities" action="AdminCities"/>
-            <h:commandButton value="Stations" action="AdminStations"/>
-            <h:commandButton value="Drivers" action="AdminDrivers"/>
-            <h:commandButton value="CityLines" action="AdminCityLines"/>
-            <h:commandButton value="Busses" action="AdminBusses"/>
-            <h:commandButton value="Carriers" action="AdminCarriers"/>
-            <h:commandButton value="IntercityLines" action="AdminIntercityLines"/>
-            <h:commandButton value="TicketOffers" action="AdminTicketOffers"/>
+            <p:panelGrid columns="1" style="float:right">
+                <p:commandButton value="Busses" action="Busses"/>
+                <p:commandButton value="Cities" action="AdminCities"/>
+                <p:commandButton value="Stations" action="AdminStations"/>
+                <p:commandButton value="Drivers" action="AdminDrivers"/>
+                <p:commandButton value="CityLines" action="AdminCityLines"/>
+                <p:commandButton value="Carriers" action="AdminCarriers"/>
+                <p:commandButton value="IntercityLines" action="AdminIntercityLines"/>
+                <p:commandButton value="TicketOffers" action="AdminTicketOffers"/>
+                <p:commandButton value="Reservations" action="AdminReservations"/>
+                <p:commandButton value="Tickets" action="AdminTickets"/>
+            </p:panelGrid>
         </h:form>
+    </h:body>
     
 </html>

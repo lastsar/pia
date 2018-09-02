@@ -100,4 +100,22 @@ public class RegisteredUserService {
         this.registeredUsers = this.service.getByExample(this.exampleRegisteredUser);
     }
     
+    public RegisteredUser find(String username){
+        for(RegisteredUser user:allRegisteredUsers){
+            if(user.getUserName().equals(username)){
+                return user;
+            }
+        }
+        return null;
+    }
+    
+    public RegisteredUser find(String username, String password){
+        for(RegisteredUser user:allRegisteredUsers){
+            if(user.getUserName().equals(username) && user.getPassword().equals(password)){
+                return user;
+            }
+        }
+        return null;
+    }
+    
 }

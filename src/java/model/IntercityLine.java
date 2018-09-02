@@ -36,9 +36,9 @@ public class IntercityLine implements Serializable {
     @ManyToOne
     private City arrivalCity;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departureDateAndTime;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date arrivalDateAndTime;
     @ManyToOne
     private Bus bus;

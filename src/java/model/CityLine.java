@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -38,15 +39,17 @@ public class CityLine implements Serializable {
     private List<Station> interStations;
     @ManyToOne
     private Station arrivalStation;
-    
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date departureTime; 
+    private transient Date newDate;
+    @ElementCollection(fetch=FetchType.EAGER)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private List<Date> schedule;
     @ManyToMany(fetch=FetchType.EAGER)
     private List<Driver> drivers;
     
     private transient Boolean editable;
 
     public CityLine() {
+        this.schedule = new ArrayList<>();
         this.editable = false;
         this.city = new City();
         this.departureStation = new Station();
@@ -55,24 +58,26 @@ public class CityLine implements Serializable {
         this.drivers = new ArrayList<>();
     }
     
-    public CityLine(CityLine cityLine){
-        this.id = cityLine.id;
-        this.lineNumber = cityLine.lineNumber;
-        this.departureTime = cityLine.departureTime;
-        this.city = cityLine.city;
+    public void addNewDate(){
+        schedule.add(newDate);
+    }
+
+    public Date getNewDate() {
+        return newDate;
+    }
+
+    public void setNewDate(Date newDate) {
+        this.newDate = newDate;
+    }
+
+    public List<Date> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(List<Date> schedule) {
+        this.schedule = schedule;
     }
     
-
-    public CityLine(City city, Integer lineNumber, Station departureStation, List<Station> interStations, Station arrivalStation, Date departureTime, List<Driver> drivers) {
-        this.city = city;
-        this.lineNumber = lineNumber;
-        this.departureStation = departureStation;
-        this.interStations = interStations;
-        this.arrivalStation = arrivalStation;
-        this.departureTime = departureTime;
-        this.drivers = drivers;
-    }
-
     public City getCity() {
         return city;
     }
@@ -111,14 +116,6 @@ public class CityLine implements Serializable {
 
     public void setArrivalStation(Station arrivalStation) {
         this.arrivalStation = arrivalStation;
-    }
-
-    public Date getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
     }
 
     public List<Driver> getDrivers() {
